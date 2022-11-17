@@ -79,7 +79,7 @@
 
         <div class="buttons mb-3">
             <input type="submit" value="Create" name="addUser">
-            <input type="reset" value="Cancel">
+            <a href="{{ route('users') }}">cancel</a>
         </div>
     </form>
 </section>

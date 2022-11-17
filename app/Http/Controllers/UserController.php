@@ -43,7 +43,7 @@ class UserController extends Controller
                 'last_name' => 'required|min:3|max:255|string',
                 'phone' =>'required|numeric|min:2',
                 'gender' =>'required|string',
-                'email' =>'required|email:rfs,dns',
+                'email' =>'required|email:rfs,dns|unique:users',
                 'role_id' => ['required',
                     Rule::in(array_values($roles))
                 ]

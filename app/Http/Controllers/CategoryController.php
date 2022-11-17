@@ -10,10 +10,10 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        $category = Category::search(request(['search', 'date']))->paginate(10);
+        $categories = Category::search(request(['search', 'date']))->paginate(10);
 
         return view('categories.index',[
-            'categories' => $category
+            'categories' => $categories
         ]);
     }
 

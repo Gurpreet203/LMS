@@ -13,7 +13,7 @@
         </span>
         <div class="buttons">
             <input type="submit" value="Create" name="addUser">
-            <input type="reset" value="Cancel">
+            <a href="{{ route('categories') }}">cancel</a>
         </div>
     </form>
 </section>

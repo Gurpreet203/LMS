@@ -41,6 +41,7 @@ class Category extends Model
         $name = trim($name);
         $name = str_replace(' ','-',$name);
         $name = strtolower($name);
+        
         return $name;
     }
 }

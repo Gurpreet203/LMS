@@ -23,6 +23,10 @@ class LoginController extends Controller
         {
             if ($user->status==1 && Auth::attempt($attributes))
             {
+                $user->update([
+                    'email_status' => 1
+                ]);
+
                 if ($user->is_employee)
                 {
                     return to_route('employee');
