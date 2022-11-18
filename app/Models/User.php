@@ -18,6 +18,9 @@ class User extends Authenticatable
     
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes, ReceivesWelcomeNotification, Sluggable;
 
+    const ACTIVE = 1;
+    const INACTIVE = 0;
+
     /**
      * The attributes that are mass assignable.
      *

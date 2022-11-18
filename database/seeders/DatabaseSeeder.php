@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             CategoriesSeeder::class,
             StatusSeeder::class,
+            LevelSeeder::class
         ]);
         
     }

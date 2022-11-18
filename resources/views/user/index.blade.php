@@ -1,17 +1,11 @@
 @extends('layouts.main')
+
 @section('content')
-    @include('layouts.nav')
+    <x-nav/>
 
     <main>
 
-        <section class="nav-bottom">
-            <div>
-                <h2>Users</h2>
-            </div>
-            <div>
-                <a href="{{ route('users.create') }}" class="btn btn-primary" id="createbtn">Create User</a>
-            </div>
-        </section>
+        <x-nav-bottom heading="Users" btn="User"/>
 
         <section class="under-create-btn">
             <form action="{{ route('users') }}?{{request()->getQueryString()}}" method="get">

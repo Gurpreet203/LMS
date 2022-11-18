@@ -13,12 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('course_units', function(Blueprint $tables){
-            $tables->id();
-            $tables->foreignId('courses_id');
-            $tables->unsignedBigInteger('units_id');
-            $tables->timestamps();
-            $tables->foreign('units_id')->references('id')->on('units');
+        Schema::create('units', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->text('description');
+            $table->timestamps();
         });
     }
 
@@ -29,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('units');
     }
 };

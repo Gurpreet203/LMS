@@ -28,6 +28,8 @@ class UserSeeder extends Seeder
             'gender' => 'male',
             'phone' => 9915607741,
             'password' => Hash::make('admin123'),
+            'status' => '1',
+            'email_status' => '1'
             
         ]);
         User::create([

@@ -26,11 +26,9 @@ class LoginController extends Controller
 
         if ($user)
         {
-            if ($user->status==1 && Auth::attempt($attributes))
+            if ($user->status==User::ACTIVE && Auth::attempt($attributes))
             {
-                $user->update([
-                    'email_status' => 1
-                ]);
+                return redirect('/');
             }
             
             return back()->with('status','You are Inactive user Or your email or password is incorrect');

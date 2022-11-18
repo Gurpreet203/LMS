@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CategoryStatusController;
+use App\Http\Controllers\CourseControllerr;
 use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\RouteController;
 use App\Http\Controllers\SetPasswordController;
@@ -37,13 +38,16 @@ Route::get('/', function () {
     return redirect('/login');
 });
 
-Route::get('/login', [LoginController::class, 'index'])->name('login');
+Route::controller(LoginController::class)->group(function(){
 
-Route::post('/login', [LoginController::class, 'login']);
+    Route::get('/login', 'index')->name('login');
+
+    Route::post('/login', 'login');
+
+    Route::post('/logout', 'logout')->name('logout')->middleware('auth');
+});
 
 Route::middleware(['auth'])->group(function() {
-
-    Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
     
     Route::controller(RouteController::class)->group(function(){
 
@@ -69,8 +73,7 @@ Route::middleware(['auth'])->group(function() {
 
     });
 
-    Route::post('/users/{user:slug}/status', [UserStatusController::class, 'status'])
-        ->name('users.status');
+    Route::post('/users/{user:slug}/status', UserStatusController::class)->name('users.status');
 
     Route::controller(CategoryController::class)->group(function() {
 
@@ -88,8 +91,7 @@ Route::middleware(['auth'])->group(function() {
 
     });
     
-    Route::post('/categories/{category:slug}/status', [CategoryStatusController::class, 'status'])
-        ->name('categories.status');
+    Route::post('/categories/{category:slug}/status', CategoryStatusController::class)->name('categories.status');
 
     Route::controller(SetPasswordController::class)->group(function(){
 
@@ -104,6 +106,12 @@ Route::middleware(['auth'])->group(function() {
         Route::post('/{user:slug}/reset-password', 'index')->name('reset-password');
 
         Route::put('/{user:slug}/reset-password', 'store')->name('reset-password.store');
+
+    });
+
+    Route::controller(CourseControllerr::class)->group(function(){
+
+        Route::get('/courses', 'index')->name('courses');
 
     });
     

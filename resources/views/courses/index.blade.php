@@ -2,5 +2,5 @@
 
 @section('content')
     <x-nav/>
-    <h1>Dashboard</h1>
+    <x-nav-bottom heading="Courses" btn="New Course"/>
 @endsection

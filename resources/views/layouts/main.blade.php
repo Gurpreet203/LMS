@@ -27,7 +27,7 @@
 
             @endif
             
-            <a href="#"><li><i class="bi bi-files"></i> Courses</li></a>
+            <a href="{{ route('courses') }}" id="{{ Request::url() == route('courses') ? 'hovereffect' : '' }}"><li><i class="bi bi-files"></i> Courses</li></a>
            
             <a href="#"><li><i class="bi bi-bar-chart-fill"></i> Reports</li></a>
            

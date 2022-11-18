@@ -13,12 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('units', function(Blueprint $tables){
-            $tables->id();
-            $tables->string('title');
-            $tables->text('description');
-            $tables->foreignId('courses_id')->constrained()->cascadeOnDelete();
-            $tables->timestamps();
+        Schema::create('levels', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->timestamps();
         });
     }
 
@@ -29,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('levels');
     }
 };

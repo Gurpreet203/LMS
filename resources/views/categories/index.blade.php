@@ -2,15 +2,8 @@
 
 @section('content')
     <main>
-        @include('layouts.nav')
-        <section class="nav-bottom">
-            <div>
-                <h2>Categories</h2>
-            </div>
-            <div>
-                <a href="{{ route('categories.create') }}" class="btn btn-primary" id="createbtn">Create Category</a>
-            </div>
-        </section>
+        <x-nav/>
+        <x-nav-bottom heading="Categories" btn="Category"/>
 
         <section class="under-create-btn">
             <form action="{{ route('categories') }}?{{request()->getQueryString()}}" method="get">

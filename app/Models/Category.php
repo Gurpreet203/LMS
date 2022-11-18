@@ -10,6 +10,9 @@ class Category extends Model
 {
     use HasFactory,SoftDeletes;
 
+    const ACTIVE = 1;
+    const INACTIVE = 0;
+
     protected $fillable = [
         'name',
         'slug',
