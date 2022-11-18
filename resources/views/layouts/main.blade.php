@@ -33,3 +33,8 @@
            
         </ul>
     </nav>
+    <div>
+        @yield('content')
+    </div>
+</body>
+</html>

@@ -2,12 +2,13 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CategoryStatusController;
 use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\RouteController;
 use App\Http\Controllers\SetPasswordController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserStatusController;
-
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,26 +21,23 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-// use Spatie\WelcomeNotification\WelcomesNewUsers;
-// use App\Http\Controllers\Auth\MyWelcomeController;
-// use App\Http\Controllers\CategoryStatusController;
-// 
-
-// Route::group(['middleware' => ['web', WelcomesNewUsers::class,]], function () {
-//     Route::get('welcome/{user}', [MyWelcomeController::class, 'showWelcomeForm'])->name('welcome');
-//     Route::post('welcome/{user}', [MyWelcomeController::class, 'savePassword']);
-// });
 
 Route::get('/', function () {
 
-    return redirect(route('login'));
+    if (Auth::check()) {
+
+        if (Auth::user()->is_employee) {
+
+            return redirect('/my-courses.index');
+        }
+
+        return redirect('/dashboard');
+    }
+
+    return redirect('/login');
 });
 
-Route::get('/login', function () {
-
-    return view('user.login');
-    
-})->name('login');
+Route::get('/login', [LoginController::class, 'index'])->name('login');
 
 Route::post('/login', [LoginController::class, 'login']);
 
@@ -65,7 +63,7 @@ Route::middleware(['auth'])->group(function() {
 
         Route::get('/users/{user:slug}/edit', 'edit')->name('users.edit');
 
-        Route::patch('/users/{user:slug}/update', 'update')->name('users.update');
+        Route::put('/users/{user:slug}/update', 'update')->name('users.update');
 
         Route::delete('/users/{user:slug}/delete', 'delete')->name('users.delete');
 
@@ -84,7 +82,7 @@ Route::middleware(['auth'])->group(function() {
     
         Route::get('/categories/{category:slug}/edits', 'edit')->name('categories.edit');  
     
-        Route::patch('/categories/{category:slug}/update', 'update')->name('categories.update'); 
+        Route::put('/categories/{category:slug}/update', 'update')->name('categories.update'); 
     
         Route::delete('/categories/{category:slug}/delete', 'delete')->name('categories.delete'); 
 
@@ -105,7 +103,7 @@ Route::middleware(['auth'])->group(function() {
 
         Route::post('/{user:slug}/reset-password', 'index')->name('reset-password');
 
-        Route::patch('/{user:slug}/reset-password', 'store')->name('reset-password.store');
+        Route::put('/{user:slug}/reset-password', 'store')->name('reset-password.store');
 
     });
     

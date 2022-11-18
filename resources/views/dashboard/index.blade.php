@@ -1,7 +1,6 @@
-@include('layouts.main')
-<section>
+@extends('layouts.main')
+
+@section('content')
     @include('layouts.nav')
     <h1>Dashboard</h1>
-</section>
-</body>
-</html>
+@endsection

@@ -4,7 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
-use App\Http\Controllers\Auth\MyCustomWelcomeNotification;
+use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -16,7 +16,7 @@ class User extends Authenticatable
 {
 
     
-    use HasApiTokens, HasFactory, Notifiable, SoftDeletes, ReceivesWelcomeNotification;
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes, ReceivesWelcomeNotification, Sluggable;
 
     /**
      * The attributes that are mass assignable.
@@ -55,6 +55,15 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function sluggable(): array
+    {
+        return [
+            'slug' => [
+                'source' => ['first_name', 'last_name']
+            ]
+        ];
+    }
+    
     public function role()
     {
         return $this->belongsTo(Role::class);

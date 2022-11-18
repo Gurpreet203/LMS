@@ -1,5 +1,5 @@
-@include('layouts.main')
-<section>
+@extends('layouts.main')
+@section('content')
     @include('layouts.nav')
 
     <main>
@@ -154,6 +154,4 @@
 
         </section>
     </main>
-</section>
-</body>
-</html>
+@endsection

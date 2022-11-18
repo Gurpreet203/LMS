@@ -1,9 +1,10 @@
-@include('layouts.main')
-<section>
+@extends('layouts.main')
+
+@section('content')
 
     <form action="{{ route('users.update',$user->slug) }}" method="POST" class="loginForm editForm">
         @csrf
-        @method('PATCH')
+        @method('PUT')
         <h1>Edit Account</h1>
         <label for="first_name" class="form-label">First Name</label>
         <input type="text" name="first_name" value="{{$user->first_name}}" class="form-control form-control-sm">
@@ -51,6 +52,4 @@
        </div>
         
     </form>
-</section>
-</body>
-</html>
+@endsection

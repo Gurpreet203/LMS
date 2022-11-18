@@ -1,10 +1,10 @@
-@include('layouts.main')
+@extends('layouts.main')
 
-<section>
+@section('content')
     @include('layouts.flashmessages')
     
     <form action="{{ route('reset-password.store' , $user->slug) }}" method="post" class="loginForm editForm">
-        @method('PATCH')
+        @method('PUT')
         @csrf
         <h1>Reset Password</h1>
         <label for="password" class="form-label">Password</label>
@@ -27,6 +27,4 @@
             <input type="submit" value="Update" name="addPassword">
         </div>
     </form>
-</section>
-</body>
-</html>
+@endsection

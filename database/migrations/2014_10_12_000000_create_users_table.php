@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreignId('role_id');
             $table->string('first_name');
             $table->string('last_name');
-            $table->string('slug')->unique();
+            $table->string('slug');
             $table->string('email')->unique();
             $table->integer('created_by');
             $table->string('gender');

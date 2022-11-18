@@ -1,6 +1,6 @@
-@include('layouts.main')
+@extends('layouts.main')
 
-<section>
+@section('content')
     <form action="{{ route('categories.store') }}" method="post" class="loginForm addUser">
         @csrf
         <h1>Create Category</h1>
@@ -16,4 +16,4 @@
             <a href="{{ route('categories') }}">cancel</a>
         </div>
     </form>
-</section>
+@endsection

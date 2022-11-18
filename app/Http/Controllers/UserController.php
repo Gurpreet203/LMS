@@ -50,10 +50,10 @@ class UserController extends Controller
             ]
         );
        
-        $slug = User::createSlug($attributes['first_name'] ,$attributes['last_name']);
+        // $slug = User::;
 
         $attributes +=[
-            'slug' => $slug,
+            // 'slug' => $slug,
             'created_by' => Auth::id(),
         ];
 

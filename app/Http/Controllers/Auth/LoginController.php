@@ -9,6 +9,11 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
+    public function index()
+    {
+        return view('user.login');
+    }
+
     public function login(Request $request)
     {
         $attributes = $request->validate([
@@ -26,13 +31,6 @@ class LoginController extends Controller
                 $user->update([
                     'email_status' => 1
                 ]);
-
-                if ($user->is_employee)
-                {
-                    return to_route('employee');
-                }
-                
-                return to_route('dashboard');
             }
             
             return back()->with('status','You are Inactive user Or your email or password is incorrect');
