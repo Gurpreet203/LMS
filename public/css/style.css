@@ -508,13 +508,12 @@ iframe{
     font-size: 14px;
 }
 .unit-edit{
-    margin-right: 10px;
-    margin-top: 10px;
     border: 1px solid rgb(200, 221, 249);
     background-color: rgb(239,246,255);
     text-decoration: none;
     padding: 2px;
     border-radius: 2px;
+    height: fit-content;
 }
 
 .breadcrumbs-mine{
@@ -523,4 +522,8 @@ iframe{
 .forget-password-text{
     color: grey;
     font-size: 14px;
+}
+.unit-detail-right{
+    display: flex;
+    gap: 10px;
 }

@@ -58,4 +58,11 @@ class UnitController extends Controller
         return to_route('courses.show',$course)->with('status','Successfully Unit Update');
     }
 
+    public function destroy(Course $course, Unit $unit)
+    {
+        $unit->delete();
+
+        return to_route('courses.show', $course)->with('status', 'Successfully deleted');
+    }
+
 }

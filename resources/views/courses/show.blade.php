@@ -69,9 +69,13 @@
                     <p>{{$unit->description}}</p>
                 </div>
             </div>
-            <div>
+            <div class="unit-detail-right">
                 <a href="{{ route('units.edit',['course'=>$course,'unit'=>$unit]) }}" class="unit-edit"><i class="bi bi-pencil-square"></i> Edit Section</a>
-                <button type="button" class="btn btn-outline-danger btn-sm"><i class="bi bi-trash"></i> Delete</button>
+                <form action="{{ route('units.destroy',['course'=>$course,'unit'=>$unit]) }}" method="post">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-outline-danger btn-sm"><i class="bi bi-trash"></i> Delete</button>
+                </form>
             </div>
         </section>
     @endforeach

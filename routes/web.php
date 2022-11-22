@@ -162,6 +162,8 @@ Route::middleware(['auth'])->group(function() {
 
         Route::put('/courses/{course:slug}/unit/{unit}/update', 'update')->name('units.update');
 
+        Route::delete('/courses/{course:slug}/unit/{unit}/destroy', 'destroy')->name('units.destroy');
+
     });
     
 });
