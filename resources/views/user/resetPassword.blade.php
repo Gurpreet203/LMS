@@ -8,7 +8,7 @@
         @csrf
         <h1>Reset Password</h1>
         <label for="password" class="form-label">Password</label>
-        <input type="password" class="form-control form-control-sm" name="password">
+        <input type="password" class="form-control form-control-sm" name="password" required> 
         <span class="text-danger">
             @error('password')
                 {{$message}}
@@ -16,15 +16,16 @@
         </span>
 
         <label for="confirm-password" class="form-label">Confirm Password</label>
-        <input type="password" class="form-control form-control-sm" name="confirm-password">
+        <input type="password" class="form-control form-control-sm" name="confirm-password" required>
         <span class="text-danger">
             @error('confirm-password')
                 {{$message}}
             @enderror
         </span>
         
-        <div class="buttons">
-            <input type="submit" value="Update" name="addPassword">
-        </div>
+        
+        <button type="submit" class="btn btn-secondary">Update</button>
+        <a href="{{ route('users') }}" class="btn btn-outline-secondary">Cancel</a>
+        
     </form>
 @endsection

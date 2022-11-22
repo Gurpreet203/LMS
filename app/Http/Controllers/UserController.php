@@ -17,7 +17,7 @@ class UserController extends Controller
     public function index()
     {    
         
-        $users = User::search(request(['search', 'role', 'date']))->simplePaginate(6);
+        $users = User::latest()->search(request(['search', 'role', 'date']))->simplePaginate(6);
 
         return view('user.index',[
             'users' => $users,
@@ -66,7 +66,8 @@ class UserController extends Controller
                 $user->restore();
                 $user->update( array_merge($attributes, [
                     'password' => null,
-                    'status' => 0
+                    'status' => 0,
+                    'email_status' => 0
                 ]));             
             }
         }
@@ -77,7 +78,12 @@ class UserController extends Controller
         
         Notification::send($user, new UserNotification(Auth::user()));
         
-        return to_route('users')->with('status','Successfully added the user');
+        if($request['save'] == 'save')
+        {
+            return to_route('users')->with('status', 'Successfully Created');
+        }
+
+        return back()->with('status','Successfully Created');
     }
 
     public function edit(User $user)

@@ -16,14 +16,14 @@
         @csrf
         <h1>Account Login</h1>
         <label for="email" class="form-label">Email</label>
-        <input type="email" name="email" class="form-control">
+        <input type="email" name="email" class="form-control" required>
         <span class="text-danger">
             @error('email')
                 {{$message}}
             @enderror
         </span>
         <label for="password" class="form-label">Password</label>
-        <input type="password" name="password" class="form-control">
+        <input type="password" name="password" class="form-control" required>
         <span class="text-danger">
             @error('password')
                 {{$message}}
@@ -31,7 +31,7 @@
         </span>
         <div>
             <input type="checkbox" name="remember">Remember me
-            <a href="#">Forgot Password?</a>
+            <a href="{{ route('forget-password') }}">Forgot Password?</a>
         </div>
         <input type="submit" value="Log in" name="login">
     </form>

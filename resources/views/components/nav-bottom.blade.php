@@ -1,10 +1,10 @@
-@props(['heading','btn'])
+@props(['heading','btn','route'])
 
 <section class="nav-bottom">
     <div>
-        <h2>{{$heading}}</h2>
+        <h1>{{$heading}}</h1>
     </div>
     <div>
-        <a href="{{ route('categories.create') }}" class="btn btn-primary" id="createbtn">Create {{$btn}}</a>
+        <a href="{{ route($route) }}" class="btn btn-primary" id="createbtn">{{$btn}}</a>
     </div>
 </section>

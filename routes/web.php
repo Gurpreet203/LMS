@@ -1,16 +1,21 @@
 <?php
 
+use App\Http\Controllers\AccountSettingController;
+use App\Http\Controllers\Auth\ForgetPasswordController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CategoryStatusController;
 use App\Http\Controllers\CourseControllerr;
+use App\Http\Controllers\CourseStatusController;
 use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\RouteController;
 use App\Http\Controllers\SetPasswordController;
+use App\Http\Controllers\UnitController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserStatusController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use PHPUnit\TextUI\XmlConfiguration\Group;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,7 +52,27 @@ Route::controller(LoginController::class)->group(function(){
     Route::post('/logout', 'logout')->name('logout')->middleware('auth');
 });
 
+Route::controller(ForgetPasswordController::class)->group(function(){
+        
+    Route::get('/forget-password', 'index')->name('forget-password');
+
+    Route::post('/forget-password/email-send', 'confirmation')->name('forget-password.email');
+
+    Route::get('/forget-password/{user:slug}/new-password', 'edit')->name('forget-password.change');
+
+    Route::put('/forget-password/{user:slug}/new-password', 'update')->name('forget-password.update');
+
+});
+
 Route::middleware(['auth'])->group(function() {
+
+    Route::controller(AccountSettingController::class)->group(function() {
+
+        Route::get('/account/setting', 'edit')->name('account');
+
+        Route::put('/account/setting', 'update')->name('account.update');
+
+    });
     
     Route::controller(RouteController::class)->group(function(){
 
@@ -112,6 +137,30 @@ Route::middleware(['auth'])->group(function() {
     Route::controller(CourseControllerr::class)->group(function(){
 
         Route::get('/courses', 'index')->name('courses');
+
+        Route::get('/courses/create', 'create')->name('courses.create');
+
+        Route::post('/courses/store', 'store')->name('courses.store');
+
+        Route::get('/courses/{course:slug}/edit', 'edit')->name('courses.edit');
+
+        Route::put('/courses/{course}/update', 'update')->name('courses.update');
+
+        Route::get('/courses/{course:slug}', 'show')->name('courses.show');
+
+    });
+
+    Route::get('/courses/{course}/status', CourseStatusController::class)->name('courses.status');
+
+    Route::controller(UnitController::class)->group(function(){
+
+        Route::get('/courses/{course:slug}/units/create', 'create')->name('units');
+
+        Route::post('/courses/{course}/units/store', 'store')->name('units.store');
+
+        Route::get('/courses/{course:slug}/unit/{unit}/edit', 'edit')->name('units.edit');
+
+        Route::put('/courses/{course:slug}/unit/{unit}/update', 'update')->name('units.update');
 
     });
     

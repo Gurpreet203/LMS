@@ -10,7 +10,7 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        $categories = Category::search(request(['search', 'date']))->paginate(10);
+        $categories = Category::latest()->where('created_by', Auth::id())->search(request(['search', 'date']))->paginate(10);
 
         return view('categories.index',[
             'categories' => $categories
@@ -29,7 +29,6 @@ class CategoryController extends Controller
         ]);
 
         $attributes+=[
-            'slug' => Category::createSlug($attributes['name']),
             'created_by' => Auth::id()
         ];
 

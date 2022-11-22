@@ -3,19 +3,15 @@
 @section('content')
     <main>
         <x-nav/>
-        <x-nav-bottom heading="Categories" btn="Category"/>
+        <x-nav-bottom heading="Categories" btn="Create Category" route="categories.create"/>
 
         <section class="under-create-btn">
-            <form action="{{ route('categories') }}?{{request()->getQueryString()}}" method="get">
-                <div class="d-flex">
-                    <input class="form-control" type="text" name="search" placeholder="Search by Name">
-                    <i class="bi bi-search"></i>
-                </div>
-            </form>
+            <x-search route="categories" placeholder="Search by name"/>
             <div class="right-dropdowns">
                 <div class="dropdown">
-                    <button class="btn-secondary dropdown-toggle right-dropdowns-btn" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                    Latest Created Date
+                    <button class="btn-secondary right-dropdowns-btn" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        Latest Created Date
+                        <span class="dropdown-toggle "></span>
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                         <li><a class="dropdown-item" href="{{ route('categories') }}?date=latest">Latest Created Date</a></li>
@@ -38,7 +34,7 @@
                 <th>Status</th>
                 <th></th>
                 </tr>
-                @if ($categories->count()>=1)
+                @if ($categories->count()>0)
                     @foreach ($categories as $category)
                         
                         <tr>
@@ -97,7 +93,7 @@
                                         
                                         <li class="drop-items">
                                             <div class="drop-items-icon">
-                                                <i class="bi bi-pencil-square"></i>
+                                                <i class="bi bi-wrench-adjustable"></i>
                                                 <a href="{{ route('categories.edit',$category) }}">Edit</a>
                                             </div>
                                             

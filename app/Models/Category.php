@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
+use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Category extends Model
 {
-    use HasFactory,SoftDeletes;
+    use HasFactory,SoftDeletes, Sluggable;
 
     const ACTIVE = 1;
     const INACTIVE = 0;
@@ -20,6 +21,20 @@ class Category extends Model
         'courses',
         'status',
     ];
+
+    public function sluggable(): array
+    {
+        return [
+            'slug' => [
+                'source' => ['name']
+            ]
+        ];
+    }
+
+    public static function valid()
+    {
+        return self::pluck('id')->toArray();
+    }
 
     public function user()
     {
@@ -37,14 +52,5 @@ class Category extends Model
             return $query
             ->orderBy('created_at', 'DESC');
         });
-    }
-
-    public static function createSlug($name)
-    {
-        $name = trim($name);
-        $name = str_replace(' ','-',$name);
-        $name = strtolower($name);
-        
-        return $name;
     }
 }

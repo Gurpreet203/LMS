@@ -15,12 +15,13 @@ return new class extends Migration
     {
         Schema::create('courses', function (Blueprint $table) {
             $table->id();
+            $table->string('slug')->unique();
             $table->foreignId('user_id')->constrained();
             $table->foreignId('category_id')->constrained();
             $table->string('title');
             $table->text('description');
             $table->boolean('certificate')->default(0);
-            $table->foreignId('statuses_id')->constrained();
+            $table->foreignId('status_id')->constrained();
             $table->foreignId('level_id')->constrained();
             $table->timestamps();
         });

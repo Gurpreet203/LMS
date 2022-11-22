@@ -16,7 +16,7 @@ class User extends Authenticatable
 {
 
     
-    use HasApiTokens, HasFactory, Notifiable, SoftDeletes, ReceivesWelcomeNotification, Sluggable;
+    use HasApiTokens, HasFactory, SoftDeletes, ReceivesWelcomeNotification, Sluggable, Notifiable;
 
     const ACTIVE = 1;
     const INACTIVE = 0;
@@ -96,33 +96,19 @@ class User extends Authenticatable
         });
     }
 
-    public static function createSlug($first_name,$last_name)
-    {
-
-        $slug = strtolower($first_name).'-'.strtolower($last_name);
-
-        $slugs = self::select('slug')->where('slug', 'like', $slug.'%')->get();
-
-        if(!$slugs->contains('slug',$slug))
-        {
-            return $slug;
-        }
-
-        $i =1;
-        
-        do {
-            $newSlug = $slug.'-'.$i;
-            if(!$slugs->contains('slug',$newSlug))
-            {
-                return $newSlug;
-            }
-            $i++;
-        }while(true);
-    }
-
     public function getIsEmployeeAttribute()
     {
         return $this->role_id == Role::EMPLOYEE;
+    }
+
+    public function getIsAdminAttribute()
+    {
+        return $this->role_id == Role::ADMIN;
+    }
+
+    public function getIsSubadminAttribute()
+    {
+        return $this->role_id == Role::SUB_ADMIN;
     }
 
     public function getNameAttribute()

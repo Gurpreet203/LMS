@@ -15,6 +15,7 @@ class Role extends Model
         'slug',
     ];
 
+    const ADMIN = 1;
     const SUB_ADMIN = 2;
     const EMPLOYEE = 3;
     const TRAINER = 4;

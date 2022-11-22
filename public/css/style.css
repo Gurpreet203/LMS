@@ -118,12 +118,6 @@ iframe{
 .edit{
     background-color: rgb(63, 63, 247);
 }
-
-.editForm,.addUser{
-    margin-top: 2%;
-    margin-left: 20%;
-    width: 50%;
-}
 .buttons{
     display: flex;
     justify-content: space-between;
@@ -145,18 +139,6 @@ iframe{
     margin-top: 20px;
     width: 100%;
     text-align: center;
-}
-
-.editForm input[type="reset"],.addUser input[type="reset"]{
-    
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-   background-color: rgb(180, 178, 178);
-    font-weight: bold;
-    margin-bottom: 0;
-    margin-top: 20px;
-    width: 100%;
 }
 
 .addUser input[type="radio"]{
@@ -215,8 +197,8 @@ iframe{
     justify-content: space-between;
     padding: 20px;
 }
-.nav-bottom h2{
-    font-size: 25px;
+.nav-bottom h1{
+    font-size: 22px;
 }
 
 #createbtn{
@@ -231,7 +213,7 @@ iframe{
 }
 
 .drop-items{
-    color: rgb(148, 146, 146);
+    color: rgb(139, 138, 138);
     background-color: white;
     border: none;
     font-size: 10px;
@@ -246,22 +228,24 @@ iframe{
 }
 .drop-items a{
     text-decoration: none;
-    color: grey;
+    color: rgb(139, 138, 138);
     font-weight: normal;
+    cursor: pointer;
 }
-.drop-items:hover{
-    opacity: 0.8;
-    color: grey;
-}
+
 .drop-items-icon{
     padding-left: 10px;
-    color: rgb(148, 146, 146);
+    color: rgb(139, 138, 138);
     font-weight: 400;
+}
+
+.drop-items-icon:hover,.drop-items-icon a:hover{
+    color: black !important;
 }
 
 .nav{
     background-color: white;
-    padding: 5px;
+    padding: 15px;
     justify-content: right;
     position: sticky;
     top: 0;
@@ -274,21 +258,26 @@ iframe{
 }
 
 .d-flex{
-    width: 150%;
+    width: 100%;
 }
 .d-flex i{
     position:relative;
     right: 30px;
     top: 7px;
 }
-.right-dropdowns div{
-    display: inline;
+.d-flex input{
+    padding-right: 30px;
 }
+.right-dropdowns{
+    display: flex;
+    justify-content: space-between;
+}
+
 .right-dropdowns-btn{
     box-shadow: 0px 0px 2px 0px rgba(107, 107, 107, 0.5);
     background-color: white;
     border: none;
-    padding: 5px 20px;
+    padding: 5px 10px;
     margin-left: 10px;
 }
 .under-create-btn{
@@ -304,4 +293,234 @@ iframe{
 }
 #hovereffect li{
     color: rgb(16,55,92);
+}
+
+.dropdown-toggle {
+    margin-left: 50px;
+}
+#scroll{
+    height: 170px;
+    overflow-y: scroll;
+}
+
+.course-list{
+    background-color: white;
+    margin:0 20px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    margin-bottom: 2rem;
+}
+.course-list:hover{
+    box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.2);
+}
+.course-detail{
+    display: flex;
+    gap: 10px;
+}
+.course-detail p{
+    color: grey;
+}
+.course-image
+{
+    width: 200px;
+}
+.course-image img{
+    width: inherit;
+    object-fit: cover;
+    height: -webkit-fill-available;
+    border-radius: 10px;
+}
+.category-badge{
+    background-color: rgba(183, 183, 183, 0.2);
+    color: rgb(155, 153, 153);
+    font-weight: bold;
+    padding: 2px 20px;
+    display: inline;
+    font-size: 10px;
+    text-decoration: none;
+}
+
+.course-created-details{
+    display: flex;
+    font-size: 12px;
+    gap: 20px;
+    height: 20px;
+}
+.course-created-details p span{
+    color: black;
+    font-weight: bold;
+}
+
+.level-enrolled{
+    display: flex;
+    margin-top: 50px;
+    gap: 20px;
+}
+.level-enrolled p{
+    font-size: 12px;
+}
+
+.status-badge{
+    border-radius: 2px;
+    font-weight: bold;
+    padding: 4px 20px;
+    display: inline;
+    font-size: 10px;
+}
+#published{
+    background-color: rgb(209, 255, 209);
+    color: rgb(17, 142, 17);
+    border: 1px solid rgba(17, 142, 17, 0.5);
+}
+#draft{
+    background-color: rgba(183, 183, 183, 0.2);
+    color: rgb(155, 153, 153);
+    border: 1px solid rgb(179, 179, 179);
+}
+#archieved{
+    background-color: rgb(255, 188, 188);
+    color: rgb(255, 38, 38);
+    border: 1px solid rgba(255, 38, 38, 0.5);
+}
+.create-form{
+    background-color: white;
+    margin: 20px;
+    padding: 20px;
+    width: 50%;
+    border-radius: 10px;
+    box-shadow: 0px 0px 2px 0px rgba(0,0,0,0.2);
+}
+.create-form h1{
+    border-bottom: 1px solid black;
+    padding-bottom: 10px;
+}
+.btn-secondary{
+    margin-right: 10px;
+}
+.status-navigation{
+    margin-bottom: 0;
+
+}
+.status-navigation li{
+    list-style: none;
+    display: inline;
+    margin-right: 15px;
+    padding-bottom: 10px;
+}
+.status-navigation li:hover{
+    border-bottom: 1px solid black;
+}
+.status-navigation li a{
+    color: rgb(94, 93, 93);
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+}
+.status-active{
+    color: black !important;
+    border-bottom: 1px solid black;
+    padding-bottom: 10px;
+}
+.course-head{
+    color: black;
+    text-decoration: none;
+}
+.course-head:hover{
+    color: black;
+}
+.course-show{
+    background-color: white;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px;
+    box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.1);
+    /* display: flex;
+    justify-content: space-between; */
+}
+.course-show img{
+    width: 200px;
+    object-fit: cover;
+    height: 200px;
+    border-radius: 10px;
+}
+.course-show-detail{
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    color: rgb(86, 85, 85);
+}
+.course-show-detail p{
+    color: grey;
+}
+.course-show-detail-left{
+    display: flex;
+    gap: 5rem;
+}
+.course-show-detail-right a{
+    background-color: rgba(225, 225, 225, 0.5);
+    text-decoration: none;
+    padding: 5px 15px;
+}
+.course-detail-bottom{
+    display: flex;
+    justify-content: space-between;
+    padding: 0px 20px;
+}
+.course-detail-bottom-elements p{
+    font-size: 14px;
+    color: black;
+    padding: 0;
+    margin: 0;
+}
+.course-detail-bottom-elements div{
+    margin-top: 10px;
+    font-weight: bold;
+    font-size: 14px;
+}
+.content-head{
+    color: black;
+    margin: 20px;
+}
+.unit{
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 20px;
+    border-radius: 5px;
+    background-color: white;
+    margin: 20px;
+    box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.1);
+
+}
+.unit-detail{
+    display: flex;
+}
+.unit-detail-info{
+    margin-left: 20px;
+}
+.unit-detail-info h3{
+    color: rgb(86, 85, 85);
+}
+.unit-detail-info p{
+    color: rgb(139, 139, 139);
+    margin-top: 15px;
+    font-size: 14px;
+}
+.unit-edit{
+    margin-right: 10px;
+    margin-top: 10px;
+    border: 1px solid rgb(200, 221, 249);
+    background-color: rgb(239,246,255);
+    text-decoration: none;
+    padding: 2px;
+    border-radius: 2px;
+}
+
+.breadcrumbs-mine{
+    margin: 20px;
+}
+.forget-password-text{
+    color: grey;
+    font-size: 14px;
 }

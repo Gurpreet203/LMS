@@ -16,16 +16,19 @@ class StatusSeeder extends Seeder
     public function run()
     {
         Status::create([
-            'name' => 'Public',
-            'slug' => 'public'
+            'name' => 'Draft',
+            'slug' => 'draft'
         ]);
+        
         Status::create([
             'name' => 'Archieved',
             'slug' => 'archieved'
         ]);
+
         Status::create([
-            'name' => 'Draft',
-            'slug' => 'draft'
+            'name' => 'Published',
+            'slug' => 'published'
         ]);
+        
     }
 }
