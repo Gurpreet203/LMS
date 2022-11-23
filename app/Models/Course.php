@@ -11,9 +11,6 @@ class Course extends Model
 {
     use HasFactory, Sluggable;
 
-    const CERTIFICATE = 1;
-    const NOCERTIFICATE = 0;
-
     protected $fillable = [
         'slug',
         'title',
@@ -103,23 +100,8 @@ class Course extends Model
         return $this->belongsToMany(Unit::class, 'course_units');
     }
 
-    
-
-    public function publishCount()
+    public function scopeVisibleTo($query)
     {
-        return self::whereBelongsTo(Auth::user())->where('status_id', Status::PUBLISHED)->count();
-    }
-    public function archieveCount()
-    {
-        return self::whereBelongsTo(Auth::user())->where('status_id', Status::ARCHIEVED)->count();
-    }
-    public function draftCount()
-    {
-        return self::whereBelongsTo(Auth::user())->where('status_id', Status::DRAFT)->count();
-    }
-
-    public function allCount()
-    {
-        return self::whereBelongsTo(Auth::user())->count();
+        return $query->where('user_id', Auth::id());
     }
 }

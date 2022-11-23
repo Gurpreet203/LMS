@@ -19,7 +19,7 @@ class ForgetPasswordController extends Controller
     public function confirmation(Request $request)
     {
         $attributes = $request->validate([
-            'email' => 'required|email|max:255|min:5'
+            'email' => 'required|email:rfs,dns|max:255|min:5'
         ]);
 
         $user = User::where('email', $attributes['email'])->first();

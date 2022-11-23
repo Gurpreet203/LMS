@@ -5,12 +5,16 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class CategoryController extends Controller
 {
     public function index()
     {
-        $categories = Category::latest()->where('created_by', Auth::id())->search(request(['search', 'date']))->paginate(10);
+        $categories = Category::latest()
+            ->visibleTo()
+            ->search(request(['search', 'date']))
+            ->paginate(10);
 
         return view('categories.index',[
             'categories' => $categories
@@ -32,7 +36,7 @@ class CategoryController extends Controller
             'created_by' => Auth::id()
         ];
 
-        $category = Category::where('name',$attributes['name'])->withTrashed()->first();
+        $category = Category::where('name', $attributes['name'])->withTrashed()->first();
         
         if($category)
         {
@@ -53,7 +57,7 @@ class CategoryController extends Controller
 
     public function edit(Category $category)
     {
-        return view('categories.edit',[
+        return view('categories.edit', [
             'category' => $category
         ]);
     }
@@ -61,7 +65,12 @@ class CategoryController extends Controller
     public function update(Request $request , Category $category)
     {
         $attributes = $request->validate([
-            'name' => 'required|max:255|min:2'
+            'name' => ['required', 'min:3', 'max:255', 
+                Rule::in(
+                    Category::visibleTo()
+                        ->pluck('id')
+                        ->toArray()
+                )],
         ]);
 
         $updated = $category->update($attributes);

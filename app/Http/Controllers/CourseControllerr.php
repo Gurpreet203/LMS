@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Course;
 use App\Models\Level;
 use App\Models\Status;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
@@ -15,8 +16,16 @@ class CourseControllerr extends Controller
     public function index()
     {
         return view('courses.index', [
-            'count' => new Course,
-            'courses' => Course::latest()->whereBelongsTo(Auth::user())->search(request(['status','level','category','search','sort']))->get(),
+            'courses' => Course::latest()
+                ->visibleTo()
+                ->search(request([
+                        'status',
+                        'level',
+                        'category',
+                        'search',
+                        'sort'
+                    ]))
+                ->get(),
             'categories' => Category::get(),
             'levels' => Level::get(),
             'statuses' => Status::get()
@@ -26,29 +35,33 @@ class CourseControllerr extends Controller
     public function create()
     {
         return view('courses.create', [
-            'categories' => Category::get(),
+            'categories' => Category::active()->visibleTo()->get(),
             'levels' => Level::get(),
             'statuses' => Status::get()
         ]);
     }
 
     public function store(Request $request)
-    {
-        
+    { 
         $attributes = $request->validate([
-            'title' => ['required', 'min:2', 'max:255'],
+            'title' => ['required', 'min:3', 'max:255'],
             'description' => ['required', 'min:5'],
             'category_id' => ['required',
-                Rule::in(array_values( Category::valid() ))
+                Rule::in(Category::active()
+                    ->visibleTo(Auth::user())
+                    ->get()
+                    ->pluck('id')
+                    ->toArray()
+                )
             ],
             'level_id' => ['required',
-                Rule::in(array_values( Level::valid() ))
+                Rule::in(array_values(Level::valid()))
             ]
         ]);
 
         $attributes +=[
             'user_id' => Auth::id(),
-            'certificate' => $request['certificate'] ? Course::CERTIFICATE : Course::NOCERTIFICATE,
+            'certificate' => $request['certificate'] ? true : false,
             'status_id' => Status::DRAFT,
         ];
                
@@ -59,15 +72,15 @@ class CourseControllerr extends Controller
             return to_route('courses')->with('status', 'Successfully Created');
         }
 
-        return back()->with('status','Successfully Created');
+        return back()->with('status', 'Successfully Created');
     }
 
     public function edit(Course $course)
     {
-        return view('courses.edit',[
+        return view('courses.edit', [
             'course' => $course,
             'statuses' => Status::get(),
-            'categories' => Category::get(),
+            'categories' => Category::active()->visibleTo()->get(),
             'levels' => Level::get()
         ]);
     }
@@ -75,23 +88,28 @@ class CourseControllerr extends Controller
     public function update(Request $request, Course $course)
     {
         $attributes = $request->validate([
-            'title' => ['required', 'min:2', 'max:255'],
+            'title' => ['required', 'min:3', 'max:255'],
             'description' => ['required', 'min:5'],
             'category_id' => ['required',
-                Rule::in(array_values( Category::valid() ))
+            Rule::in(Category::active()
+                    ->visibleTo(Auth::user())
+                    ->get()
+                    ->pluck('id')
+                    ->toArray()
+                )
             ],
             'level_id' => ['required',
-                Rule::in(array_values( Level::valid() ))
+                Rule::in(array_values(Level::valid()))
             ]
         ]);
 
         $attributes +=[
-            'certificate' => $request['certificate']? Course::CERTIFICATE : Course::NOCERTIFICATE,
+            'certificate' => $request['certificate'] ? true : false,
         ];
 
         $course->update($attributes);
 
-        return to_route('courses')->with('status','Successfully Updated');
+        return to_route('courses')->with('status', 'Successfully Updated');
     }
 
     public function show(Course $course)

@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\WelcomeNotification\ReceivesWelcomeNotification;
 
@@ -75,6 +76,11 @@ class User extends Authenticatable
     public function category()
     {
         return $this->hasMany(Category::class);
+    }
+
+    public function scopeVisibleTo($query)
+    {
+        return $query->where('created_by', Auth::id());
     }
 
     public function scopeSearch($query ,array $filter)

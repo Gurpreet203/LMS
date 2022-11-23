@@ -11,15 +11,15 @@ class UnitController extends Controller
 {
     public function create(Course $course)
     {
-        return view('units.create' ,[
+        return view('units.create', [
             'course' => $course
         ]);
     }
 
     public function store(Request $request, Course $course)
     {
-        $attributes = $request->validate([
-            'title' => 'required|min:2|max:255',
+        $attributes = $request->validate( [
+            'title' => 'required|min:3|max:255',
             'description' => 'required|min:5'
         ]);
        
@@ -30,12 +30,12 @@ class UnitController extends Controller
             'unit_id' => $unit->id
         ]);
 
-        if($request['save'] == 'save')
+        if ($request['save'] == 'save')
         {            
-            return to_route('courses.show',$course)->with('status','Successfully Created');
+            return to_route('courses.show', $course)->with('status', 'Successfully Created');
         }
 
-        return back()->with('status','Successfully Created');
+        return back()->with('status', 'Successfully Created');
     }
 
     public function edit(Course $course, Unit $unit)
@@ -49,13 +49,13 @@ class UnitController extends Controller
     public function update(Request $request, Course $course, Unit $unit)
     {
         $attributes = $request->validate([
-            'title' => 'required|min:2|max:255',
+            'title' => 'required|min:3|max:255',
             'description' => 'required|min:5'
         ]);
 
         $unit->update($attributes);
 
-        return to_route('courses.show',$course)->with('status','Successfully Unit Update');
+        return to_route('courses.show',$course)->with('status', 'Successfully Unit Update');
     }
 
     public function destroy(Course $course, Unit $unit)

@@ -51,9 +51,6 @@
                 </tr>
                 @if ($users->count()>=1)
                     @foreach ($users as $user)
-                        @if (Auth::user()->slug == $user->slug || $user->is_admin)
-                            @continue
-                        @endif
                         <tr>
                         <td>
                             {{$user->name}}

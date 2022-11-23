@@ -6,6 +6,7 @@ use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Auth;
 
 class Category extends Model
 {
@@ -31,9 +32,19 @@ class Category extends Model
         ];
     }
 
-    public static function valid()
+    // public static function valid()
+    // {
+    //     return self::visible_to()->active()->pluck('id')->toArray();
+    // }
+
+    public function scopeActive($query)
     {
-        return self::pluck('id')->toArray();
+        return $query->where('status', true);
+    }
+
+    public function scopeVisibleTo($query)
+    {
+        return $query->where('created_by', Auth::id());
     }
 
     public function user()

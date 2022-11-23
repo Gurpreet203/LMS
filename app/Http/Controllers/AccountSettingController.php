@@ -16,8 +16,8 @@ class AccountSettingController extends Controller
     public function update(Request $request)
     {
         $attributes = $request->validate([
-            'first_name' => 'required|min:3|max:255|string',
-            'last_name' => 'required|min:3|max:255|string',
+            'first_name' => 'required|min:3|max:255|alpha',
+            'last_name' => 'required|min:3|max:255|alpha',
         ]);
 
         $id = Auth::id();

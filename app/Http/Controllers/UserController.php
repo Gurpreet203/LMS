@@ -17,9 +17,12 @@ class UserController extends Controller
     public function index()
     {    
         
-        $users = User::latest()->search(request(['search', 'role', 'date']))->simplePaginate(6);
+        $users = User::latest()
+        ->visibleTo()
+        ->search(request(['search', 'role', 'date']))
+        ->simplePaginate(6);
 
-        return view('user.index',[
+        return view('user.index', [
             'users' => $users,
             'roles' => Role::list()
         ]);
@@ -36,35 +39,32 @@ class UserController extends Controller
     {
         $roles = Role::list();
 
-        $roles =$roles->pluck('id')->toArray();
+        $roles = $roles->pluck('id')->toArray();
         
         $attributes = $request->validate([
-                'first_name' => 'required|min:3|max:255|string',
-                'last_name' => 'required|min:3|max:255|string',
-                'phone' =>'required|numeric|min:2',
-                'gender' =>'required|string',
-                'email' =>'required|email:rfs,dns|unique:users',
+                'first_name' => 'required|min:3|max:255|alpha',
+                'last_name' => 'required|min:3|max:255|alpha',
+                'phone' => 'required|numeric|min:2|digits:10',
+                'gender' => 'required',
+                'email' => 'required|email:rfs,dns',
                 'role_id' => ['required',
-                    Rule::in(array_values($roles))
+                    Rule::in(array_values($roles)),
                 ]
-            ]
+        ]
         );
-       
-        // $slug = User::;
 
         $attributes +=[
-            // 'slug' => $slug,
             'created_by' => Auth::id(),
         ];
 
-        $user = User::where( 'email' ,$attributes['email'] )->withTrashed()->first();
+        $user = User::where('email', $attributes['email'])->withTrashed()->first();
         
         if ($user)
         {
             if ($user->deleted_at != null)
             {
                 $user->restore();
-                $user->update( array_merge($attributes, [
+                $user->update(array_merge($attributes, [
                     'password' => null,
                     'status' => 0,
                     'email_status' => 0
@@ -83,7 +83,7 @@ class UserController extends Controller
             return to_route('users')->with('status', 'Successfully Created');
         }
 
-        return back()->with('status','Successfully Created');
+        return back()->with('status', 'Successfully Created');
     }
 
     public function edit(User $user)
@@ -94,25 +94,25 @@ class UserController extends Controller
         ]);
     }
 
-    public function update(Request $request , User $user)
+    public function update(Request $request, User $user)
     {
         $roles = Role::list();
 
-        $roles =$roles->pluck('id')->toArray();
+        $roles = $roles->pluck('id')->toArray();
 
         $attributes = $request->validate([
-            'first_name'=>'required|min:3|max:255|string',
-            'last_name' => 'required|min:3|max:255|string',
-            'phone' =>'required|numeric|min:2',
+            'first_name'=>'required|min:3|max:255|alpha',
+            'last_name' => 'required|min:3|max:255|alpha',
+            'phone' => 'required|numeric|min:2|digits:10',
             'role_id' => ['required',
                     Rule::in(array_values($roles))
                 ]
-            ]
+        ]
         );
 
         $user->update($attributes);
 
-        return to_route('users')->with('status','Successfully Updated');        
+        return to_route('users')->with('status', 'Successfully Updated');        
     }
 
     public function delete(User $user)
@@ -121,11 +121,11 @@ class UserController extends Controller
 
         if($deleted) // exception throw
         {
-            return back()->with('status','Successfully deleted');
+            return back()->with('status', 'Successfully deleted');
         }
         else
         {
-            return back()->with('error','Something Went Wrong In Deletion');
+            return back()->with('error', 'Something Went Wrong In Deletion');
         }
 
     }

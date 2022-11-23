@@ -8,6 +8,7 @@ class UserStatusController extends Controller
 {
     public function __invoke(User $user)
     {
+       
         if ($user->status)
         {
             $user->update([
@@ -15,6 +16,7 @@ class UserStatusController extends Controller
                 'email_status' => User::INACTIVE
             ]);
         }
+        
         else
         {
             $user->update([
@@ -22,7 +24,7 @@ class UserStatusController extends Controller
                 'email_status' => User::ACTIVE
             ]);
         }
-
+        
         return to_route('users');
     }
 }

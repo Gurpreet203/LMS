@@ -15,7 +15,6 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserStatusController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use PHPUnit\TextUI\XmlConfiguration\Group;
 
 /*
 |--------------------------------------------------------------------------
@@ -158,7 +157,7 @@ Route::middleware(['auth'])->group(function() {
 
         Route::post('/courses/{course}/units/store', 'store')->name('units.store');
 
-        Route::get('/courses/{course:slug}/unit/{unit}/edit', 'edit')->name('units.edit');
+        Route::get('/courses/{course:slug}/unit/{unit:slug}/edit', 'edit')->name('units.edit');
 
         Route::put('/courses/{course:slug}/unit/{unit}/update', 'update')->name('units.update');
 

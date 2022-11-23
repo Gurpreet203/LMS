@@ -24,7 +24,7 @@ class UserSeeder extends Seeder
             'role_id' => 1,
             'slug' => 'admin',
             'email' => 'admin@admin.com',
-            'created_by' => 1,
+            'created_by' => 0,
             'gender' => 'male',
             'phone' => 9915607741,
             'password' => Hash::make('admin123'),

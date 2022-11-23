@@ -5,7 +5,7 @@
     <div class="breadcrumbs-mine">
         <x-previousPageLink route="categories" name="Category" current="Edit Category"/>
     </div>
-    <form action="{{ route('categories.update',$category->name) }}" method="post" class="create-form">
+    <form action="{{ route('categories.update',$category) }}" method="post" class="create-form">
         @csrf
         @method('PUT')
         <h1>Edit Category</h1>

@@ -5,10 +5,10 @@
     <x-nav-bottom heading="Courses" btn="Create New Course" route="courses.create"/>
     @include('layouts.flashmessages')
     <ul class="status-navigation">
-        <li><a href="{{ route('courses') }}" @if(Request::url() == route('courses'))class='status-active' @endif>All Courses ({{$count->allCount()}})</a></li>
-        <li><a href="{{ route('courses') }}?status=3" class={{Request::url() == route('courses').'?filter=publish' ? 'status-active' : ''}}>Published ({{$count->publishCount()}})</a></li>
-        <li><a href="{{ route('courses') }}?status=1" @if(Request::url() == route('courses').'?filter=draft') class='status-active' @endif>Draft ({{$count->draftCount()}})</a></li>
-        <li><a href="{{ route('courses') }}?status=2" @if(Request::url() == route('courses').'filter=archieve') class='status-active' @endif>Archieve ({{$count->archieveCount()}})</a></li>
+        <li><a href="{{ route('courses') }}" @if(Request::url() == route('courses'))class='status-active' @endif>All Courses ({{$courses->count()}})</a></li>
+        <li><a href="{{ route('courses') }}?status=3" class={{Request::url() == route('courses').'?filter=publish' ? 'status-active' : ''}}>Published ({{$courses->where('status_id', 3)->count()}})</a></li>
+        <li><a href="{{ route('courses') }}?status=1" @if(Request::url() == route('courses').'?filter=draft') class='status-active' @endif>Draft ({{$courses->where('status_id', 1)->count()}})</a></li>
+        <li><a href="{{ route('courses') }}?status=2" @if(Request::url() == route('courses').'filter=archieve') class='status-active' @endif>Archieve ({{$courses->where("status_id", 2)->count()}})</a></li>
     </ul>
 
     <hr style="margin-top: 10px;margin-left: 20px;margin-right: 20px;"/>
