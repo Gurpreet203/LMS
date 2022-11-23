@@ -97,6 +97,7 @@ iframe{
     padding: 20px;
     position: sticky;
     top: 0;
+    z-index: 100;
 }
 .details-nav a{
     color: black;
@@ -380,7 +381,7 @@ iframe{
     border: 1px solid rgb(179, 179, 179);
 }
 #archieved{
-    background-color: rgb(255, 188, 188);
+    background-color: rgb(253, 203, 203);
     color: rgb(255, 38, 38);
     border: 1px solid rgba(255, 38, 38, 0.5);
 }

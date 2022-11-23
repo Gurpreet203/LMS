@@ -5,6 +5,7 @@ namespace App\Models;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Course extends Model
 {
@@ -106,19 +107,19 @@ class Course extends Model
 
     public function publishCount()
     {
-        return self::where('status_id', Status::PUBLISHED)->count();
+        return self::whereBelongsTo(Auth::user())->where('status_id', Status::PUBLISHED)->count();
     }
     public function archieveCount()
     {
-        return self::where('status_id', Status::ARCHIEVED)->count();
+        return self::whereBelongsTo(Auth::user())->where('status_id', Status::ARCHIEVED)->count();
     }
     public function draftCount()
     {
-        return self::where('status_id', Status::DRAFT)->count();
+        return self::whereBelongsTo(Auth::user())->where('status_id', Status::DRAFT)->count();
     }
 
     public function allCount()
     {
-        return self::all()->count();
+        return self::whereBelongsTo(Auth::user())->count();
     }
 }

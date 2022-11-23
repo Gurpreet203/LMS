@@ -16,7 +16,7 @@ class CourseControllerr extends Controller
     {
         return view('courses.index', [
             'count' => new Course,
-            'courses' => Course::latest()->where('user_id', Auth::id())->search(request(['status','level','category','search','sort']))->get(),
+            'courses' => Course::latest()->whereBelongsTo(Auth::user())->search(request(['status','level','category','search','sort']))->get(),
             'categories' => Category::get(),
             'levels' => Level::get(),
             'statuses' => Status::get()
@@ -48,7 +48,7 @@ class CourseControllerr extends Controller
 
         $attributes +=[
             'user_id' => Auth::id(),
-            'certificate' => $request['certificate']? Course::CERTIFICATE : Course::NOCERTIFICATE,
+            'certificate' => $request['certificate'] ? Course::CERTIFICATE : Course::NOCERTIFICATE,
             'status_id' => Status::DRAFT,
         ];
                
