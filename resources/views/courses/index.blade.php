@@ -57,12 +57,12 @@
         </div>
     </section>
 
-    @if ($courses->count()>0)
+    @if ($courses->count()>=1)
         @foreach ($courses as $course)
             <section class="course-list">
                 <div class="course-detail">
                     <div class="course-image">
-                        <img src="https://img.freepik.com/free-vector/images-concept-illustration_114360-218.jpg?w=740&t=st=1669090866~exp=1669091466~hmac=086e2bd34fb211abbc01503852e809c7ea6d9ddf405b0e73ffa9f8d63ebdcb44" alt="">
+                        <img src="{{asset('storage/'.$course->images->image)}}" alt="">
                     </div>
                     <div>
                         <a href="{{ route('courses') }}?category={{ $course->category->id }}" class="category-badge">{{$course->category->name}}</a>
@@ -96,7 +96,7 @@
                             <li class="drop-items">
                                 <div class="drop-items-icon">
                                     <i class="bi bi-people-fill"></i>
-                                    <a href="">Users</a>
+                                    <a href="{{ route('courses.enroll', $course) }}">Users</a>
                                 </div>
                             </li>
 

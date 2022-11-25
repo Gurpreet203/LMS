@@ -33,6 +33,7 @@ class Course extends Model
 
     public function scopeSearch($query ,array $filter)
     {
+        
         $query->when($filter['search'] ?? false, function($query , $search) {
             return $query
              ->where('title','like','%'.$search.'%')
@@ -100,8 +101,30 @@ class Course extends Model
         return $this->belongsToMany(Unit::class, 'course_units');
     }
 
+    public function images()
+    {
+        return $this->hasOne(CourseImage::class);
+    }
+
+    public function enroll()
+    {
+        return $this->belongsToMany(User::class, 'course_users')
+            ->withPivot('id', 'status')
+            ->withTimestamps();
+    }
+
     public function scopeVisibleTo($query)
     {
         return $query->where('user_id', Auth::id());
+    }
+
+    public function scopeActive($query)
+    {
+        return $query->whereIn('category_id', Category::visibleTo(Auth::user())
+            ->active()
+            ->get()
+            ->pluck('id')
+            ->toArray()
+        );
     }
 }

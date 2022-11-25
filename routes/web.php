@@ -7,6 +7,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CategoryStatusController;
 use App\Http\Controllers\CourseControllerr;
 use App\Http\Controllers\CourseStatusController;
+use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\RouteController;
 use App\Http\Controllers\SetPasswordController;
@@ -165,4 +166,10 @@ Route::middleware(['auth'])->group(function() {
 
     });
     
+    Route::controller(EnrollmentController::class)->group(function(){
+
+        Route::get('/courses/{course:slug}/users/enroll', 'index')->name('courses.enroll');
+
+        Route::post('/courses/{course:slug}/users/enroll/store', 'store')->name('courses.enroll.store');
+    });
 });

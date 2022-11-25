@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Course;
+use App\Models\CourseImage;
 use App\Models\Level;
 use App\Models\Status;
 use App\Models\User;
@@ -18,6 +19,7 @@ class CourseControllerr extends Controller
         return view('courses.index', [
             'courses' => Course::latest()
                 ->visibleTo()
+                ->active()
                 ->search(request([
                         'status',
                         'level',
@@ -56,7 +58,8 @@ class CourseControllerr extends Controller
             ],
             'level_id' => ['required',
                 Rule::in(array_values(Level::valid()))
-            ]
+            ],
+            'image' => 'mimes:jpg,png,jpeg,gif'
         ]);
 
         $attributes +=[
@@ -64,8 +67,15 @@ class CourseControllerr extends Controller
             'certificate' => $request['certificate'] ? true : false,
             'status_id' => Status::DRAFT,
         ];
-               
-        Course::create($attributes);
+
+        $image = $request->file('image')->store('/images');
+
+        $course = Course::create($attributes);
+
+        CourseImage::create([
+            'course_id' => $course->id,
+            'image' => $image
+        ]);
 
         if($request['save'] == 'save')
         {

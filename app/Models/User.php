@@ -78,9 +78,24 @@ class User extends Authenticatable
         return $this->hasMany(Category::class);
     }
 
+    public function course()
+    {
+        return $this->hasMany(Course::class);
+    }
+
     public function scopeVisibleTo($query)
     {
         return $query->where('created_by', Auth::id());
+    }
+
+    public function scopeActive($query)
+    {
+        return $query->where('status', self::ACTIVE);
+    }
+
+    public function scopeIsEmployee($query)
+    {
+        return $query->where('role_id', Role::EMPLOYEE);
     }
 
     public function scopeSearch($query ,array $filter)
@@ -100,6 +115,14 @@ class User extends Authenticatable
             return $query
             ->orderBy('created_at', 'DESC');
         });
+    }
+
+    public function enrollment()
+    {
+        return $this->belongsToMany(Course::class, 'course_users')
+            ->withPivot('id', 'status')
+            ->withTimestamps()
+            ->get();
     }
 
     public function getIsEmployeeAttribute()

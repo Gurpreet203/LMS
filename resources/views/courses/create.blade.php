@@ -6,7 +6,7 @@
         <x-previousPageLink route="courses" name="Courses" current="Create Course"/>
     </div>
     @include('layouts.flashmessages')
-    <form action="{{ route('courses.store') }}" method="POST" class="create-form">
+    <form action="{{ route('courses.store') }}" method="POST" class="create-form" enctype="multipart/form-data">
         @csrf
         <div class="mb-3">
             <label for="title" class="form-label">What Will Be The Course Name?</label>
@@ -57,6 +57,15 @@
             <label class="form-check-label" for="certificate">
               Certificate?
             </label>
+        </div>
+        <div class="mb-3">
+            <label for="title" class="form-label">Upload Course Image</label>
+            <input type="file" name="image" class="form-control form-control-sm" required placeholder="Enter Course Image" value="{{old('image')}}">
+            <span class="text-danger">
+                @error('image')
+                    {{$message}}
+                @enderror
+            </span>
         </div>
         <button type="submit" value="save" name="save" class="btn btn-secondary">Save</button>
         <button type="submit" value="save_another" name="save" class="btn btn-secondary">Save & Add Another</button>        
