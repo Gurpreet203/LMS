@@ -13,15 +13,15 @@ class EnrollmentController extends Controller
 {
     public function index(Course $course)
     {
+        $id = $course->id;
+
         $users = User::visibleTo()
             ->active()
-            ->whereDoesntHave('enrollments', function($query) {
-                $query->where('course_id', 1);
+            ->whereDoesntHave('enrollments', function($query)use($id) {
+                $query->where('course_id', $id);
             })
             ->employee()
             ->get();
-        
-        $id = $course->id;
 
         $enrolledUsers = User::with(["enrollments" => function ($query)use($id) {
                 $query->where('course_id', $id);
