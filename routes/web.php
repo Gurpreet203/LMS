@@ -7,6 +7,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CategoryStatusController;
 use App\Http\Controllers\CourseControllerr;
 use App\Http\Controllers\CourseStatusController;
+use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\RouteController;
@@ -34,13 +35,13 @@ Route::get('/', function () {
 
         if (Auth::user()->is_employee) {
 
-            return redirect('/my-courses.index');
+            return to_route('my-courses.index');
         }
 
-        return redirect('/dashboard');
+        return to_route('dashboard');
     }
 
-    return redirect('/login');
+    return to_route('login');
 });
 
 Route::controller(LoginController::class)->group(function(){
@@ -78,7 +79,7 @@ Route::middleware(['auth'])->group(function() {
 
         Route::get('/dashboard', 'index')->name('dashboard');
 
-        Route::get('/employee', 'employee')->name('employee');
+        // Route::get('/employee', 'employee')->name('employee');
 
     });
 
@@ -172,4 +173,10 @@ Route::middleware(['auth'])->group(function() {
 
         Route::post('/courses/{course:slug}/users/enroll/store', 'store')->name('courses.enroll.store');
     });
+
+    Route::controller(EmployeeController::class)->group(function(){
+
+        Route::get('/my-courses', 'index')->name('my-courses.index');
+    });
+
 });

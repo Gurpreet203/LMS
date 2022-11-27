@@ -110,12 +110,17 @@ class CourseControllerr extends Controller
             ],
             'level_id' => ['required',
                 Rule::in(array_values(Level::valid()))
-            ]
+            ],
+            'image' => ['mimes:jpg,png,jpeg,gif']
         ]);
 
         $attributes +=[
             'certificate' => $request['certificate'] ? true : false,
         ];
+
+        $course->images->update([
+            'image' => $request->file('image')->store('/images')
+        ]);
 
         $course->update($attributes);
 

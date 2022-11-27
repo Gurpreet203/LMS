@@ -106,11 +106,12 @@ class Course extends Model
         return $this->hasOne(CourseImage::class);
     }
 
-    public function enroll()
+    public function enrollments()
     {
-        return $this->belongsToMany(User::class, 'course_users')
-            ->withPivot('id', 'status')
-            ->withTimestamps();
+        return $this->belongsToMany(User::class)
+            ->withPivot('id', 'status', 'created_by', 'user_id', 'course_id')
+            ->withTimestamps()
+            ->using(CourseUser::class);
     }
 
     public function scopeVisibleTo($query)

@@ -5,7 +5,7 @@
     <div class="breadcrumbs-mine">
         <x-previousPageLink route="courses" name="Courses" current="Edit Course"/>
     </div>
-    <form action="{{ route('courses.update', $course) }}" method="POST" class="create-form">
+    <form action="{{ route('courses.update', $course) }}" method="POST" class="create-form" enctype="multipart/form-data">
         @method('PUT')
         @csrf
         <div class="mb-3">
@@ -57,6 +57,15 @@
             <label class="form-check-label" for="certificate">
               Certificate?
             </label>
+        </div>
+        <div class="mb-3">
+            <label for="title" class="form-label">Edit Course Image</label>
+            <input type="file" name="image" class="form-control form-control-sm" placeholder="Edit Course Image" value="{{old('image')}}">
+            <span class="text-danger">
+                @error('image')
+                    {{$message}}
+                @enderror
+            </span>
         </div>
         <button type="submit" name="update" class="btn btn-secondary">Update</button>
         <a href="{{ route('courses') }}" class="btn btn-outline-secondary">Cancel</a>

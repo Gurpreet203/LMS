@@ -68,21 +68,7 @@ class User extends Authenticatable
         ];
     }
     
-    public function role()
-    {
-        return $this->belongsTo(Role::class);
-    }
-
-    public function category()
-    {
-        return $this->hasMany(Category::class);
-    }
-
-    public function course()
-    {
-        return $this->hasMany(Course::class);
-    }
-
+    // Scope's
     public function scopeVisibleTo($query)
     {
         return $query->where('created_by', Auth::id());
@@ -93,9 +79,15 @@ class User extends Authenticatable
         return $query->where('status', self::ACTIVE);
     }
 
-    public function scopeIsEmployee($query)
+    public function scopeEmployee($query)
     {
         return $query->where('role_id', Role::EMPLOYEE);
+    }
+
+    
+    public function scopeEmployeeCourse($query)
+    {
+        return $query->where('id', $this->enrollments()->user_id);
     }
 
     public function scopeSearch($query ,array $filter)
@@ -117,14 +109,7 @@ class User extends Authenticatable
         });
     }
 
-    public function enrollment()
-    {
-        return $this->belongsToMany(Course::class, 'course_users')
-            ->withPivot('id', 'status')
-            ->withTimestamps()
-            ->get();
-    }
-
+    // Attribute's
     public function getIsEmployeeAttribute()
     {
         return $this->role_id == Role::EMPLOYEE;
@@ -144,4 +129,40 @@ class User extends Authenticatable
     {
         return $this->first_name.' '.$this->last_name;
     }
+
+    // Relationship's
+
+    public function enrollments()
+    {
+        return $this->belongsToMany(Course::class)
+            ->withPivot('id', 'status', 'created_by', 'user_id', 'course_id')
+            ->withTimestamps()
+            ->using(CourseUser::class);
+    }
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
+
+    public function categories()
+    {
+        return $this->hasMany(Category::class);
+    }
+
+    public function courses()
+    {
+        return $this->hasMany(Course::class);
+    }
+
+    public function course()
+    {
+        return $this->belongsToMany(Course::class, 'course_user');
+    }
+
+    // public function enrollable() 
+    // {
+    //      // when we need to enroll both employee's and trainers into a course 
+            //then we use this enrollable getter/scope.
+    // }
 }

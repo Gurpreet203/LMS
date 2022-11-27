@@ -6,18 +6,35 @@ use App\Models\Course;
 use App\Models\Status;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
 class EnrollmentController extends Controller
 {
     public function index(Course $course)
     {
+        $users = User::visibleTo()
+            ->active()
+            ->whereDoesntHave('enrollments', function($query) {
+                $query->where('course_id', 1);
+            })
+            ->employee()
+            ->get();
+        
+        $id = $course->id;
+
+        $enrolledUsers = User::with(["enrollments" => function ($query)use($id) {
+                $query->where('course_id', $id);
+            }])
+            ->whereHas('enrollments',function ($query)use($id){
+                $query->where('course_id', $id);
+            })
+            ->get();
+
         return view('enrollment.index', [
             'course' => $course,
-            'users' => User::visibleTo()
-                    ->active()
-                    ->isEmployee()
-                    ->get()
+            'users' => $users,
+            'enrolledUsers' => $enrolledUsers
         ]);
     }
 
@@ -29,19 +46,25 @@ class EnrollmentController extends Controller
         }
 
         $attributes = $request->validate([
-            'user_id' => ['required', Rule::in(
-                User::visibleTo()
-                ->active()
-                ->isEmployee()
-                ->get()
-                ->pluck('id')
-                ->toArray()
+            'user_id' => ['required', 
+                Rule::in(User::visibleTo()
+                            ->active()
+                            ->employee()
+                            ->get()
+                            ->pluck('id')
+                            ->toArray()
             )]
         ]);
-        // dd($course->enroll());
       
-        $course->enroll()->attach($attributes['user_id']);
+        $course->enrollments()->attach($attributes['user_id'], ['created_by' => Auth::id()]);
 
-        return to_route('courses');
+        return back()->with('status', 'Succcessfuly enrolled');
+    }
+
+    public function destroy(User $user, Course $course)
+    {
+        $course->detach($user);
+
+        return back()->with('status', 'Successfully unernrolled');
     }
 }

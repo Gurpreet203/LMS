@@ -528,3 +528,8 @@ iframe{
     display: flex;
     gap: 10px;
 }
+
+.enroll{
+    display: flex;
+    justify-content: space-between;
+}

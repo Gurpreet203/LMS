@@ -60,7 +60,7 @@
         </div>
         <div class="mb-3">
             <label for="title" class="form-label">Upload Course Image</label>
-            <input type="file" name="image" class="form-control form-control-sm" required placeholder="Enter Course Image" value="{{old('image')}}">
+            <input type="file" name="image" class="form-control form-control-sm" required placeholder="upload Course Image" value="{{old('image')}}">
             <span class="text-danger">
                 @error('image')
                     {{$message}}
