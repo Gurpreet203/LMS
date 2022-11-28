@@ -17,8 +17,9 @@
         </div>
         <ul>
             
+           @if (Auth::id() != 3)
             <a href="{{ route('dashboard') }}" id="{{ Request::url() == route('dashboard') ? 'hovereffect' : '' }}"><li><i class="bi bi-speedometer2"></i> Overview </li></a>
-            
+                
             <a href="{{ route('users') }}" id="{{ Request::url() == route('users') ? 'hovereffect' : '' }}"><li><i class="bi bi-people-fill"></i> Users </li></a>
 
             @if(Auth::user()->role_id!=4)
@@ -28,9 +29,13 @@
             @endif
             
             <a href="{{ route('courses') }}" id="{{ Request::url() == route('courses') ? 'hovereffect' : '' }}"><li><i class="bi bi-files"></i> Courses</li></a>
-           
+            
             <a href="#"><li><i class="bi bi-bar-chart-fill"></i> Reports</li></a>
-           
+
+            @else
+                <a href="{{ route('my-courses.index') }}" id="{{ Request::url() == route('my-courses.index') ? 'hovereffect' : '' }}"><li><i class="bi bi-files"></i> Course List</li></a>
+            @endif
+
         </ul>
     </nav>
     <div>

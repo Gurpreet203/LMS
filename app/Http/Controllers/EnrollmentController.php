@@ -13,28 +13,18 @@ class EnrollmentController extends Controller
 {
     public function index(Course $course)
     {
-        $id = $course->id;
-
         $users = User::visibleTo()
             ->active()
-            ->whereDoesntHave('enrollments', function($query)use($id) {
-                $query->where('course_id', $id);
+            ->whereDoesntHave('enrollments', function($query)use($course) {
+                $query->where('course_id', $course->id);
             })
             ->employee()
-            ->get();
-
-        $enrolledUsers = User::with(["enrollments" => function ($query)use($id) {
-                $query->where('course_id', $id);
-            }])
-            ->whereHas('enrollments',function ($query)use($id){
-                $query->where('course_id', $id);
-            })
             ->get();
 
         return view('enrollment.index', [
             'course' => $course,
             'users' => $users,
-            'enrolledUsers' => $enrolledUsers
+            'enrolledUsers' => $course->enrollments()->get()
         ]);
     }
 
@@ -49,6 +39,9 @@ class EnrollmentController extends Controller
             'user_id' => ['required', 
                 Rule::in(User::visibleTo()
                             ->active()
+                            ->whereDoesntHave('enrollments', function($query)use($course) {
+                                $query->where('course_id', $course->id);
+                            })
                             ->employee()
                             ->get()
                             ->pluck('id')

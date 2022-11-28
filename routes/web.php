@@ -177,6 +177,11 @@ Route::middleware(['auth'])->group(function() {
     Route::controller(EmployeeController::class)->group(function(){
 
         Route::get('/my-courses', 'index')->name('my-courses.index');
+
+        Route::get('/my-courses/add-courses', 'create')->name('my-courses.create');
+
+        Route::post('/my-courses/add-courses', 'store')->name('my-courses.store');
+        
     });
 
 });

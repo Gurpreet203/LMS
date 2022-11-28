@@ -95,9 +95,6 @@ iframe{
     display: flex;
     justify-content: flex-end;
     padding: 20px;
-    position: sticky;
-    top: 0;
-    z-index: 100;
 }
 .details-nav a{
     color: black;

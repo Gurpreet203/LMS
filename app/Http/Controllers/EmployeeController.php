@@ -2,25 +2,73 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Course;
+use App\Models\Level;
+use App\Models\Status;
+use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class EmployeeController extends Controller
 {
     public function index()
     {
-        $id = Auth::id() ;
+        // old code which is worked but way is wrong 
 
-        $courses = Course::with(["enrollments" => function ($query)use($id) {
-                $query->where('user_id', $id);
-            }])
-            ->whereHas('enrollments',function ($query)use($id){
-                $query->where('user_id', $id);
-            })
-            ->get();
+        // $id = Auth::id();
+
+        // $courses = Course::with(["enrollments" => function ($query)use($id) {
+        //         $query->where('user_id', $id);
+        //     }])
+        //     ->whereHas('enrollments',function ($query)use($id){
+        //         $query->where('user_id', $id);
+        //     })
+        //     ->get();
+       
+        $id = Auth::id();
+        $user = User::find($id);
+
+        $courses = $user->enrollments()->publish()->get();
 
         return view('employee.index', [
+            'courses' => $courses,
+        ]);
+    }
+
+    public function create()
+    {
+        $courses = Course::whereDoesntHave('enrollments', function($query) {
+                        $query->where('user_id', Auth::id());
+                    })
+                    ->publish()
+                    ->get();
+
+        return view('employee.create', [
             'courses' => $courses
         ]);
+    }
+
+    public function store(Request $request)
+    {
+        $attributes = $request->validate([
+            'course_id' => ['required', 
+                Rule::in(Course::whereDoesntHave('enrollments', function($query) {
+                                $query->where('user_id', Auth::id());
+                            })
+                            ->publish()
+                            ->get()
+                            ->pluck('id')
+                            ->toArray()
+            )]
+        ]);
+
+        $id = Auth::id();
+        $user = User::find($id);
+      
+        $user->enrollments()->attach($attributes['course_id'], ['created_by' => Auth::id()]);
+
+        return back()->with('status', 'Succcessfuly enrolled');
     }
 }
