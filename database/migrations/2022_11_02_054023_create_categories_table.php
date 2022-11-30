@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('name')->unique();
             $table->string('slug');
             $table->unsignedBigInteger('created_by');
-            $table->integer('courses')->default(0);
             $table->boolean('status')->default(1);
             $table->softDeletes();
             $table->timestamps();

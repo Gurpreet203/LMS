@@ -61,7 +61,9 @@
                             {{$user->role->name}}
                         </td>
 
-                        <td></td>
+                        <td>
+                            {{$user->enrollments()->count()}}
+                        </td>
                         <td>
                             {{ $user->created_at->format('M d,Y') }}
                             <span>{{ $user->created_at->format('h:i A') }}</span>
@@ -100,6 +102,17 @@
                                             </form>
                                         @endif
                                     </li>
+
+                                    @if ($user->is_employee)
+
+                                        <li class="drop-items">
+                                            <div class="drop-items-icon">
+                                                <i class="bi bi-file-earmark-plus"></i>
+                                                <a href="{{ route('enroll-courses.create', $user) }}">Enroll Course</a>
+                                            </div>
+                                        </li>
+                                        
+                                    @endif
                                     
                                     <li class="drop-items">
                                         <div class="drop-items-icon">

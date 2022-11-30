@@ -7,6 +7,7 @@ use App\Models\Status;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
 class EnrollmentController extends Controller
@@ -35,28 +36,33 @@ class EnrollmentController extends Controller
             return back()->with('error', 'Course is not published');
         }
 
-        $attributes = $request->validate([
-            'user_id' => ['required', 
-                Rule::in(User::visibleTo()
-                            ->active()
-                            ->whereDoesntHave('enrollments', function($query)use($course) {
-                                $query->where('course_id', $course->id);
-                            })
-                            ->employee()
-                            ->get()
-                            ->pluck('id')
-                            ->toArray()
-            )]
+        $attributes = Validator::make($request->all(), [
+            'user_ids' => [
+                'bail',
+                'required',
+                'array',
+                'min:1',
+                Rule::in(User::visibleTo(Auth::user())
+                    ->whereDoesntHave('enrollments', function ($query) use ($course) {
+                        $query->where('course_id', $course->id);
+                    })->get()
+                    ->pluck('id')
+                    ->toArray()),
+            ],
         ]);
       
-        $course->enrollments()->attach($attributes['user_id'], ['created_by' => Auth::id()]);
+        $validated = $attributes->validated();
+        $course->enrollments()->attach($validated['user_ids'], 
+            [
+                'created_by' => Auth::id()
+            ]);
 
         return back()->with('status', 'Succcessfuly enrolled');
     }
 
-    public function destroy(User $user, Course $course)
+    public function destroy(Course $course, User $user)
     {
-        $course->detach($user);
+        $course->enrollments()->detach($user->id);
 
         return back()->with('status', 'Successfully unernrolled');
     }

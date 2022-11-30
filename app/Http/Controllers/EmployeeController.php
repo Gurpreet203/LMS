@@ -36,39 +36,4 @@ class EmployeeController extends Controller
             'courses' => $courses,
         ]);
     }
-
-    public function create()
-    {
-        $courses = Course::whereDoesntHave('enrollments', function($query) {
-                        $query->where('user_id', Auth::id());
-                    })
-                    ->publish()
-                    ->get();
-
-        return view('employee.create', [
-            'courses' => $courses
-        ]);
-    }
-
-    public function store(Request $request)
-    {
-        $attributes = $request->validate([
-            'course_id' => ['required', 
-                Rule::in(Course::whereDoesntHave('enrollments', function($query) {
-                                $query->where('user_id', Auth::id());
-                            })
-                            ->publish()
-                            ->get()
-                            ->pluck('id')
-                            ->toArray()
-            )]
-        ]);
-
-        $id = Auth::id();
-        $user = User::find($id);
-      
-        $user->enrollments()->attach($attributes['course_id'], ['created_by' => Auth::id()]);
-
-        return back()->with('status', 'Succcessfuly enrolled');
-    }
 }

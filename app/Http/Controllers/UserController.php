@@ -50,7 +50,7 @@ class UserController extends Controller
                 'role_id' => ['required',
                     Rule::in(array_values($roles)),
                 ]
-        ]
+            ],
         );
 
         $attributes +=[

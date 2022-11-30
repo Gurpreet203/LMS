@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CategoryStatusController;
 use App\Http\Controllers\CourseControllerr;
+use App\Http\Controllers\CourseEnrollmentController;
 use App\Http\Controllers\CourseStatusController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\EnrollmentController;
@@ -172,16 +173,24 @@ Route::middleware(['auth'])->group(function() {
         Route::get('/courses/{course:slug}/users/enroll', 'index')->name('courses.enroll');
 
         Route::post('/courses/{course:slug}/users/enroll/store', 'store')->name('courses.enroll.store');
+
+        Route::delete('/courses/{course}/{user}/destroy', 'destroy')->name('courses.enroll.destroy');
     });
 
     Route::controller(EmployeeController::class)->group(function(){
 
         Route::get('/my-courses', 'index')->name('my-courses.index');
-
-        Route::get('/my-courses/add-courses', 'create')->name('my-courses.create');
-
-        Route::post('/my-courses/add-courses', 'store')->name('my-courses.store');
         
+    });
+
+    Route::controller(CourseEnrollmentController::class)->group(function(){
+
+        Route::get('users/{user:slug}/enroll-courses', 'index')->name('enroll-courses.create');
+
+        Route::post('users/{user:slug}/enroll-courses', 'store')->name('enroll-courses.store');
+
+        Route::delete('users/{user}/{course}/destroy', 'destroy')->name('enroll-courses.destroy');
+
     });
 
 });

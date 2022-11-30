@@ -109,7 +109,7 @@ class Course extends Model
     public function enrollments()
     {
         return $this->belongsToMany(User::class)
-            ->withPivot('id', 'status', 'created_by', 'user_id', 'course_id')
+            ->withPivot('id', 'status', 'created_by')
             ->withTimestamps()
             ->using(CourseUser::class);
     }

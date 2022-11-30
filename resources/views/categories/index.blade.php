@@ -47,7 +47,9 @@
                                 <span>{{$category->user->email}}</span>
                             </td>
 
-                            <td></td>
+                            <td>
+                                {{$category->courses->count()}}
+                            </td>
                             
                             
                             <td>

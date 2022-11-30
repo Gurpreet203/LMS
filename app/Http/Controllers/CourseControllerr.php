@@ -7,7 +7,6 @@ use App\Models\Course;
 use App\Models\CourseImage;
 use App\Models\Level;
 use App\Models\Status;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;

@@ -47,11 +47,6 @@ class Category extends Model
         return $query->where('created_by', Auth::id());
     }
 
-    public function user()
-    {
-        return $this->belongsTo(User::class,'created_by');
-    }
-
     public function scopeSearch($query ,array $filter)
     {
         $query->when($filter['search']??false, function($query , $search) {
@@ -63,5 +58,15 @@ class Category extends Model
             return $query
             ->orderBy('created_at', 'DESC');
         });
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class,'created_by');
+    }
+
+    public function courses()
+    {
+        return $this->hasMany(Course::class);
     }
 }

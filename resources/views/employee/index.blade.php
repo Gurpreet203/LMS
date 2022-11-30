@@ -36,21 +36,7 @@
                 </div>
                 <div class="course-options">
                     <p class="status-badge" @if($course->status->name=="Published")id="published" @elseif($course->status->name=="Archieved")id="archieved" @else id="draft" @endif>{{$course->status->name}}</p>
-                    <div class="btn-group">
-                        <button class="icon" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="bi bi-three-dots"></i>
-                        </button>
-                        <ul class="dropdown-menu">
-                            
-                            <li class="drop-items">
-                                <div class="drop-items-icon">
-                                    <i class="bi bi-people-fill"></i>
-                                    <a href="{{ route('my-courses.create') }}">Add Course</a>
-                                </div>
-                            </li>
-
-                        </ul>
-                    </div>
+                    
                 </div>
             </section>
         @endforeach 
