@@ -1,14 +1,14 @@
-body{
+body {
     font-family: sans-serif;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    background-color: rgb(243,244,246);
+    background-color: rgb(243, 244, 246);
 }
-input::placeholder{
+input::placeholder {
     opacity: 0.5 !important;
 }
-.loginForm{
+.loginForm {
     background-color: white;
     padding: 2rem 4rem;
     box-shadow: 0px 0px 5px 0px rgba(102, 101, 101, 0.2);
@@ -19,21 +19,21 @@ input::placeholder{
     margin-top: 10%;
 }
 
-.loginForm h1{
+.loginForm h1 {
     border-bottom: 1px solid black;
     padding-bottom: 1rem;
     margin-bottom: 1rem;
     text-align: center;
 }
 
-.loginForm input[type="checkbox"]{
+.loginForm input[type="checkbox"] {
     width: 5%;
 }
-.loginForm a{
+.loginForm a {
     text-decoration: none;
     margin-left: 5rem;
 }
-.loginForm input[type="submit"]{
+.loginForm input[type="submit"] {
     background-color: dodgerblue;
     padding: 10px;
     border: none;
@@ -45,63 +45,64 @@ input::placeholder{
     width: 100%;
 }
 
-.dashboard{
+.dashboard {
     display: grid;
     grid-template-columns: 200px 1fr;
-    background-color: rgb(243,244,246);
+    background-color: rgb(243, 244, 246);
 }
 
-.sidebar{
+.sidebar {
     height: 100vh;
-    background-color: rgb(16,55,92);
+    background-color: rgb(16, 55, 92);
     color: white;
     padding: 0;
     position: sticky;
     top: 0;
 }
-.sidebar img{
+.sidebar img {
     height: 80px;
     width: 150px;
     margin: 20px;
 }
-.sidebar ul{
+.sidebar ul {
     padding: 0;
 }
-.sidebar ul li{
+.sidebar ul li {
     list-style: none;
     padding: 10px;
     color: white;
     padding: 20px;
 }
 
-.sidebar ul a{
+.sidebar ul a {
     text-decoration: none;
     display: block;
 }
-.sidebar ul li:hover{
+.sidebar ul li:hover {
     background-color: white;
-    color: rgb(16,55,92);
-    background-color: rgb(243,244,246);
+    color: rgb(16, 55, 92);
+    background-color: rgb(243, 244, 246);
 }
-iframe{
+iframe {
     width: 100%;
     height: 100%;
 }
 
-.details-nav{
+.details-nav {
     background-color: white;
     color: black;
-    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.2);
+    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.2);
     display: flex;
     justify-content: flex-end;
     padding: 20px;
 }
-.details-nav a{
+.details-nav a {
     color: black;
     text-decoration: none;
 }
 
-.delete,.edit{
+.delete,
+.edit {
     color: white;
     background-color: red;
     padding: 5px;
@@ -109,23 +110,23 @@ iframe{
     border-radius: 5px;
     margin-right: 5px;
 }
-.delete:hover,.edit:hover{
+.delete:hover,
+.edit:hover {
     opacity: 0.8;
     color: white;
 }
-.edit{
+.edit {
     background-color: rgb(63, 63, 247);
 }
-.buttons{
+.buttons {
     display: flex;
     justify-content: space-between;
 }
-.buttons input{
+.buttons input {
     margin-right: 10px;
 }
 
-
-.buttons a{
+.buttons a {
     background-color: rgb(210, 204, 204);
     color: black;
     text-decoration: none;
@@ -139,78 +140,74 @@ iframe{
     text-align: center;
 }
 
-.addUser input[type="radio"]{
+.addUser input[type="radio"] {
     width: 5%;
 }
 
-.form-check{
+.form-check {
     margin-bottom: 2rem;
 }
 
-.text-danger{
+.text-danger {
     display: block;
 }
-.create-btn{
+.create-btn {
     text-align: right;
     margin: 20px;
 }
 
-.icon{
+.icon {
     background-color: transparent;
     color: black;
     border: none;
 }
 
-
-
-.side-section{
+.side-section {
     padding: 20px;
 }
 
-.table td span{
+.table td span {
     display: block;
     color: rgb(154, 154, 154);
     font-size: 12px;
 }
 
-
-.table th{
+.table th {
     background-color: rgb(229, 241, 250) !important;
     font-size: 14px;
 }
-.table td{
+.table td {
     padding: 15px;
-    vertical-align:middle;
+    vertical-align: middle;
     font-size: 14px;
     background-color: white !important;
     font-weight: 500;
     color: rgb(49, 48, 48);
 }
 
-.badge{
+.badge {
     width: 50%;
 }
-.nav-bottom{
+.nav-bottom {
     display: flex;
     justify-content: space-between;
     padding: 20px;
 }
-.nav-bottom h1{
+.nav-bottom h1 {
     font-size: 22px;
 }
 
-#createbtn{
+#createbtn {
     font-weight: bold;
     font-size: 14px;
     padding: 8px 25px;
-  
 }
 
-#table-head{
-    background-color: rgb(240,249,255);
+#table-head {
+    background-color: rgb(240, 249, 255);
 }
 
-.drop-items{
+.drop-items {
     color: rgb(139, 138, 138);
     background-color: white;
     border: none;
@@ -220,28 +217,28 @@ iframe{
     padding-left: 0;
     font-weight: 400;
 }
-.drop-items-icon i{
+.drop-items-icon i {
     font-size: 12px;
-    
 }
-.drop-items a{
+.drop-items a {
     text-decoration: none;
     color: rgb(139, 138, 138);
     font-weight: normal;
     cursor: pointer;
 }
 
-.drop-items-icon{
+.drop-items-icon {
     padding-left: 10px;
     color: rgb(139, 138, 138);
     font-weight: 400;
 }
 
-.drop-items-icon:hover,.drop-items-icon a:hover{
+.drop-items-icon:hover,
+.drop-items-icon a:hover {
     color: black !important;
 }
 
-.nav{
+.nav {
     background-color: white;
     padding: 15px;
     justify-content: right;
@@ -249,88 +246,87 @@ iframe{
     top: 0;
 }
 
-#nav-btn{
+#nav-btn {
     border: none;
     font-size: 14px;
     background-color: transparent;
 }
 
-.d-flex{
+.d-flex {
     width: 100%;
 }
-.d-flex i{
-    position:relative;
+.d-flex i {
+    position: relative;
     right: 30px;
     top: 7px;
 }
-.d-flex input{
+.d-flex input {
     padding-right: 30px;
 }
-.right-dropdowns{
+.right-dropdowns {
     display: flex;
     justify-content: space-between;
 }
 
-.right-dropdowns-btn{
+.right-dropdowns-btn {
     box-shadow: 0px 0px 2px 0px rgba(107, 107, 107, 0.5);
     background-color: white;
     border: none;
     padding: 5px 10px;
     margin-left: 10px;
 }
-.under-create-btn{
+.under-create-btn {
     display: flex;
     justify-content: space-between;
     padding: 20px;
 }
 
-#hovereffect{
-    background-color: rgb(243,244,246);
+#hovereffect {
+    background-color: rgb(243, 244, 246);
     border-bottom-right-radius: 5px;
     border-top-right-radius: 5px;
 }
-#hovereffect li{
-    color: rgb(16,55,92);
+#hovereffect li {
+    color: rgb(16, 55, 92);
 }
 
 .dropdown-toggle {
     margin-left: 50px;
 }
-#scroll{
+#scroll {
     height: 170px;
     overflow-y: scroll;
 }
 
-.course-list{
+.course-list {
     background-color: white;
-    margin:0 20px;
+    margin: 0 20px;
     border-radius: 5px;
     display: flex;
     justify-content: space-between;
     padding: 10px;
     margin-bottom: 2rem;
 }
-.course-list:hover{
-    box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.2);
+.course-list:hover {
+    box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.2);
 }
-.course-detail{
+.course-detail {
     display: flex;
     gap: 10px;
 }
-.course-detail p{
+.course-detail p {
     color: grey;
 }
-.course-image
-{
+.course-image {
     width: 200px;
 }
-.course-image img{
+.course-image img {
     width: inherit;
     object-fit: cover;
     height: -webkit-fill-available;
     border-radius: 10px;
 }
-.category-badge{
+.category-badge {
     background-color: rgba(183, 183, 183, 0.2);
     color: rgb(155, 153, 153);
     font-weight: bold;
@@ -339,196 +335,215 @@ iframe{
     font-size: 10px;
     text-decoration: none;
 }
+.category-badge:hover {
+    color: rgb(155, 153, 153);
+}
 
-.course-created-details{
+.course-created-details {
     display: flex;
     font-size: 12px;
     gap: 20px;
     height: 20px;
 }
-.course-created-details p span{
+.course-created-details p span {
     color: black;
     font-weight: bold;
 }
 
-.level-enrolled{
+.level-enrolled {
     display: flex;
     margin-top: 50px;
     gap: 20px;
 }
-.level-enrolled p{
+.level-enrolled p {
     font-size: 12px;
 }
 
-.status-badge{
+.status-badge {
     border-radius: 2px;
     font-weight: bold;
     padding: 4px 20px;
     display: inline;
     font-size: 10px;
 }
-#published{
+#published {
     background-color: rgb(209, 255, 209);
     color: rgb(17, 142, 17);
     border: 1px solid rgba(17, 142, 17, 0.5);
 }
-#draft{
+#draft {
     background-color: rgba(183, 183, 183, 0.2);
     color: rgb(155, 153, 153);
     border: 1px solid rgb(179, 179, 179);
 }
-#archieved{
+#archieved {
     background-color: rgb(253, 203, 203);
     color: rgb(255, 38, 38);
     border: 1px solid rgba(255, 38, 38, 0.5);
 }
-.create-form{
+.create-form {
     background-color: white;
     margin: 20px;
     padding: 20px;
     width: 50%;
     border-radius: 10px;
-    box-shadow: 0px 0px 2px 0px rgba(0,0,0,0.2);
+    box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.2);
 }
-.create-form h1{
+.create-form h1 {
     border-bottom: 1px solid black;
     padding-bottom: 10px;
 }
-.btn-secondary{
+.btn-secondary {
     margin-right: 10px;
 }
-.status-navigation{
+.status-navigation {
     margin-bottom: 0;
-
 }
-.status-navigation li{
+.status-navigation li {
     list-style: none;
     display: inline;
     margin-right: 15px;
     padding-bottom: 10px;
 }
-.status-navigation li:hover{
+.status-navigation li:hover {
     border-bottom: 1px solid black;
 }
-.status-navigation li a{
+.status-navigation li a {
     color: rgb(94, 93, 93);
     font-size: 14px;
     font-weight: bold;
     text-decoration: none;
 }
-.status-active{
+.status-active {
     color: black !important;
     border-bottom: 1px solid black;
     padding-bottom: 10px;
 }
-.course-head{
+.title-link {
     color: black;
     text-decoration: none;
 }
-.course-head:hover{
+.title-link:hover {
     color: black;
 }
-.course-show{
+.course-show {
     background-color: white;
     border-radius: 10px;
     padding: 10px;
     margin: 10px;
-    box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.1);
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
     /* display: flex;
     justify-content: space-between; */
 }
-.course-show img{
+.course-show img {
     width: 200px;
     object-fit: cover;
     height: 200px;
     border-radius: 10px;
 }
-.course-show-detail{
+.course-show-detail {
     display: flex;
     justify-content: space-between;
     padding: 10px;
     color: rgb(86, 85, 85);
 }
-.course-show-detail p{
+.course-show-detail p {
     color: grey;
 }
-.course-show-detail-left{
+.course-show-detail-left {
     display: flex;
     gap: 5rem;
 }
-.course-show-detail-right a{
+.course-show-detail-right a {
     background-color: rgba(225, 225, 225, 0.5);
     text-decoration: none;
     padding: 5px 15px;
 }
-.course-detail-bottom{
+.course-detail-bottom {
     display: flex;
     justify-content: space-between;
     padding: 0px 20px;
 }
-.course-detail-bottom-elements p{
+.course-detail-bottom-elements p {
     font-size: 14px;
     color: black;
     padding: 0;
     margin: 0;
 }
-.course-detail-bottom-elements div{
+.course-detail-bottom-elements div {
     margin-top: 10px;
     font-weight: bold;
     font-size: 14px;
 }
-.content-head{
+.content-head {
     color: black;
     margin: 20px;
 }
-.unit{
+.unit {
     display: flex;
     justify-content: space-between;
     padding: 10px 20px;
     border-radius: 5px;
     background-color: white;
     margin: 20px;
-    box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.1);
-
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
 }
-.unit-detail{
+.unit-detail {
     display: flex;
 }
-.unit-detail-info{
+.unit-detail-info {
     margin-left: 20px;
 }
-.unit-detail-info h3{
+.unit-detail-info h3 {
     color: rgb(86, 85, 85);
 }
-.unit-detail-info p{
+.unit-detail-info p {
     color: rgb(139, 139, 139);
     margin-top: 15px;
     font-size: 14px;
 }
-.unit-edit{
+.unit-edit {
     border: 1px solid rgb(200, 221, 249);
-    background-color: rgb(239,246,255);
+    background-color: rgb(239, 246, 255);
     text-decoration: none;
     padding: 2px;
     border-radius: 2px;
     height: fit-content;
 }
 
-.breadcrumbs-mine{
+.breadcrumbs-mine {
     margin: 20px;
 }
-.forget-password-text{
+.forget-password-text {
     color: grey;
     font-size: 14px;
 }
-.unit-detail-right{
+.unit-detail-right {
     display: flex;
     gap: 10px;
 }
 
-.enroll{
+.enroll {
     display: flex;
     justify-content: space-between;
     padding: 20px;
     align-items: center;
+}
+
+.enroll-list {
+    padding: 10px;
+    font-size: 12px;
+    font-weight: 500;
+}
+.enrollBtn {
+    width: 100%;
+}
+.image-form {
+    display: flex;
+    justify-content: space-between;
+    width: 95%;
+}
+
+::file-selector-button {
+    width: 100%;
 }

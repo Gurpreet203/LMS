@@ -16,8 +16,13 @@
                 @error('name')
                     {{$message}}
                 @enderror
+                @error('category')
+                    {{$message}}
+                @enderror
             </span>
         </div>
+
+        <input type="hidden" name="category" value="{{$category->slug}}">
        
         <input type="submit" value="Update" name="change" class="btn btn-secondary">
         <a href="{{ route('categories') }}" class="btn btn-outline-secondary">Cancel</a>

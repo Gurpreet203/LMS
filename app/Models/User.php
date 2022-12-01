@@ -103,9 +103,19 @@ class User extends Authenticatable
             ->where('role_id' , $search);
         });
 
-        $query->when($filter['date'] ?? false, function($query , $search){
-            return $query
-            ->orderBy('created_at', 'DESC');
+        $query->when($filter['sort'] ?? false, function($query , $search){
+            if($search == 'A-Z')
+            {
+                return $query->orderBy('first_name');
+            }
+            elseif($search == 'Z-A')
+            {
+                return $query->orderBy('first_name', 'DESC');
+            }
+            elseif($search == 'oldest')
+            {
+                return $query->orderBy('created_at', 'DESC');
+            }
         });
     }
 

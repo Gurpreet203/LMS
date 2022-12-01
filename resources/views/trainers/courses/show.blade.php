@@ -16,7 +16,11 @@
         <div class="course-show-detail">
             
             <div class="course-show-detail-left">
-                <img src="https://img.freepik.com/free-vector/images-concept-illustration_114360-218.jpg?w=740&t=st=1669090866~exp=1669091466~hmac=086e2bd34fb211abbc01503852e809c7ea6d9ddf405b0e73ffa9f8d63ebdcb44" alt="loading">
+                @if ($course->images)
+                    <img src="{{asset('storage/'.$course->images->image)}}" alt="course-image">
+                @else
+                    <img src="{{asset('storage/images/default.jpg')}}" alt="course-image">
+                @endif
                 <div>
                     <h2>{{$course->title}}</h2>
                     <p>{{$course->description}}</p>

@@ -29,8 +29,10 @@
                         <span class="dropdown-toggle "></span>
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                      <li><a class="dropdown-item" href="{{ route('users') }}?date=latest">Latest Created Date</a></li>
-                      <li><a class="dropdown-item" href="{{ route('users') }}">Oldest Created Date</a></li>
+                        <li><a class="dropdown-item" href="{{ route('users') }}?sort=A-Z">Name A-Z</a></li>
+                        <li><a class="dropdown-item" href="{{ route('users') }}?sort=Z-A">Name Z-A</a></li>
+                        <li><a class="dropdown-item" href="{{ route('users') }}">Latest Created Date</a></li>
+                        <li><a class="dropdown-item" href="{{ route('users') }}?sort=oldest">Oldest Created Date</a></li>
                     </ul>
                 </div>
             </div>
@@ -62,7 +64,7 @@
                         </td>
 
                         <td>
-                            {{$user->enrollments()->count()}}
+                            {{$user->enrollments_count}}
                         </td>
                         <td>
                             {{ $user->created_at->format('M d,Y') }}

@@ -8,6 +8,8 @@ class CategoryStatusController extends Controller
 {
     public function __invoke(Category $category)
     {
+        $this->authorize('update', $category);
+        
         if($category->status)
         {
             $category->update([

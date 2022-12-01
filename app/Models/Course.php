@@ -31,6 +31,8 @@ class Course extends Model
         ];
     }
 
+    //scopes
+
     public function scopeSearch($query ,array $filter)
     {
         
@@ -70,11 +72,32 @@ class Course extends Model
         });
     }
 
-    public function getAllCoursesAttribute()
+     public function scopeVisibleTo($query)
     {
-        return $this->status_id.' '.$this->category_id;
+        return $query->where('user_id', Auth::id());
     }
 
+    public function scopePublish($query)
+    {
+        return $query->where('status_id', Status::PUBLISHED);
+    }
+
+    public function scopeActive($query)
+    {
+        return $query->whereIn('category_id', Category::visibleTo(Auth::user())
+            ->active()
+            ->get()
+            ->pluck('id')
+            ->toArray()
+        );
+    }
+
+    // public function getAllCoursesAttribute()
+    // {
+    //     return $this->status_id.' '.$this->category_id;
+    // }
+
+    // relationships
 
     public function user()
     {
@@ -114,23 +137,5 @@ class Course extends Model
             ->using(CourseUser::class);
     }
 
-    public function scopeVisibleTo($query)
-    {
-        return $query->where('user_id', Auth::id());
-    }
-
-    public function scopePublish($query)
-    {
-        return $query->where('status_id', Status::PUBLISHED);
-    }
-
-    public function scopeActive($query)
-    {
-        return $query->whereIn('category_id', Category::visibleTo(Auth::user())
-            ->active()
-            ->get()
-            ->pluck('id')
-            ->toArray()
-        );
-    }
+   
 }

@@ -14,13 +14,13 @@ class CourseUnit extends Model
         'unit_id'
     ];
 
-    public function unit()
-    {
-        $this->hasMany(Unit::class);
-    }
+    // public function unit()
+    // {
+    //     $this->hasMany(Unit::class);
+    // }
 
-    public function course()
-    {
-        $this->belongsTo(Course::class);
-    }
+    // public function course()
+    // {
+    //     $this->belongsTo(Course::class);
+    // }
 }

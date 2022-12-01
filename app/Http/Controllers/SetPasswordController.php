@@ -19,7 +19,8 @@ class SetPasswordController extends Controller
     {
         $attributes = $request->validate([
             'password' => 'required|min:8',
-            'confirm-password' => 'required|min:8|same:password'
+            'confirm-password' => 'required|min:8|same:password',
+            'email' => 'required'
         ]);
 
         if ($user->password == null)

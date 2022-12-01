@@ -17,12 +17,14 @@ class UserController extends Controller
     public function index()
     {    
         
-        $users = User::latest()
-        ->visibleTo()
-        ->search(request(['search', 'role', 'date']))
-        ->simplePaginate(6);
+        $users = User::with('role')
+            ->withCount('enrollments')
+            ->latest()
+            ->visibleTo()
+            ->search(request(['search', 'role', 'sort']))
+            ->simplePaginate(6);
 
-        return view('user.index', [
+        return view('users.index', [
             'users' => $users,
             'roles' => Role::list()
         ]);
@@ -30,17 +32,13 @@ class UserController extends Controller
 
     public function create()
     {
-        return view('user.create', [
+        return view('users.create', [
             'roles' => Role::list(),
         ]);
     }
 
     public function store(Request $request)
     {
-        $roles = Role::list();
-
-        $roles = $roles->pluck('id')->toArray();
-        
         $attributes = $request->validate([
                 'first_name' => 'required|min:3|max:255|alpha',
                 'last_name' => 'required|min:3|max:255|alpha',
@@ -48,10 +46,14 @@ class UserController extends Controller
                 'gender' => 'required',
                 'email' => 'required|email:rfs,dns',
                 'role_id' => ['required',
-                    Rule::in(array_values($roles)),
-                ]
-            ],
-        );
+                    Rule::in(
+                            Role::list()
+                                ->pluck('id')
+                                ->toArray()
+                        ),
+                    ]
+                 ],
+            );
 
         $attributes +=[
             'created_by' => Auth::id(),
@@ -88,7 +90,9 @@ class UserController extends Controller
 
     public function edit(User $user)
     { 
-        return view('user.edit', [
+        $this->authorize('update', $user);
+
+        return view('users.edit', [
             'user' => $user,
             'roles' => Role::list()
         ]);
@@ -96,18 +100,20 @@ class UserController extends Controller
 
     public function update(Request $request, User $user)
     {
-        $roles = Role::list();
-
-        $roles = $roles->pluck('id')->toArray();
+        $this->authorize('update', $user);
 
         $attributes = $request->validate([
             'first_name'=>'required|min:3|max:255|alpha',
             'last_name' => 'required|min:3|max:255|alpha',
             'phone' => 'required|numeric|min:2|digits:10',
             'role_id' => ['required',
-                    Rule::in(array_values($roles))
-                ]
-        ]
+                    Rule::in(
+                            Role::list()
+                                ->pluck('id')
+                                ->toArray()
+                        )
+                    ]
+            ]
         );
 
         $user->update($attributes);
@@ -117,6 +123,8 @@ class UserController extends Controller
 
     public function delete(User $user)
     {
+        $this->authorize('delete', $user);
+
         $deleted = $user->delete();
 
         if($deleted) // exception throw

@@ -32,10 +32,7 @@ class Category extends Model
         ];
     }
 
-    // public static function valid()
-    // {
-    //     return self::visible_to()->active()->pluck('id')->toArray();
-    // }
+    // scopes
 
     public function scopeActive($query)
     {
@@ -54,11 +51,23 @@ class Category extends Model
             ->where('name','like','%'.$search.'%');
         });
 
-        $query->when($filter['date'] ?? false, function($query , $search){
-            return $query
-            ->orderBy('created_at', 'DESC');
+        $query->when($filter['sort'] ?? false, function($query , $search){
+            if($search == 'A-Z')
+            {
+                return $query->orderBy('name');
+            }
+            elseif($search == 'Z-A')
+            {
+                return $query->orderBy('name', 'DESC');
+            }
+            elseif($search == 'oldest')
+            {
+                return $query->orderBy('created_at', 'ASC');
+            }
         });
     }
+
+    // relationships
 
     public function user()
     {

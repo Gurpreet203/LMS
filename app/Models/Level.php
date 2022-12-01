@@ -8,9 +8,4 @@ use Illuminate\Database\Eloquent\Model;
 class Level extends Model
 {
     use HasFactory;
-
-    public static function valid()
-    {
-        return self::pluck('id')->toArray();
-    }
 }

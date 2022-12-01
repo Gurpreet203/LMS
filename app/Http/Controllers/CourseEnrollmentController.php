@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Course;
 use App\Models\User;
+use App\Notifications\EnrollmentNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
@@ -20,12 +22,14 @@ class CourseEnrollmentController extends Controller
                     ->publish()
                     ->get();
 
-        return view('user.enrollCourse', [
+        return view('users.enrollCourse', [
             'courses' => $courses,
             'user' => $user,
             'enrolledCourses' => $user->enrollments()->get()
         ]);
     }
+
+    // enrolled multiple courses to one user (1 user -> multiple courses)
 
     public function store(Request $request, User $user)
     {
@@ -46,8 +50,19 @@ class CourseEnrollmentController extends Controller
             ]
         ]);
         
-        $user->enrollments()->attach($attributes['course_ids'], ['created_by' => Auth::id()]
+        $user->enrollments()->attach($attributes['course_ids'],
+            [
+                'created_by' => Auth::id()
+            ]
         );
+
+        $course = implode(" , ",
+                    Course::find($attributes['course_ids'])
+                        ->pluck('title')
+                        ->toArray()
+                );
+
+        Notification::send($user, new EnrollmentNotification(Auth::user(), $course));
 
         return back()->with('status', 'Succcessfuly Enrolled');
     }

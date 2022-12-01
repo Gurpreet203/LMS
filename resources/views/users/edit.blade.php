@@ -48,7 +48,7 @@
             
                 <select name="role_id" class="form-select">
                     @foreach ($roles as $role)
-                        <option value="{{$role['id']}}">{{$role['name']}}</option>
+                        <option value="{{$role->id}}" @if ($user->role_id == $role->id) selected @endif>{{$role->name}}</option>
                     @endforeach
                 </select>
         

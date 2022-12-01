@@ -10,8 +10,8 @@ use App\Http\Controllers\CourseEnrollmentController;
 use App\Http\Controllers\CourseStatusController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\EnrollmentController;
+use App\Http\Controllers\OverviewController;
 use App\Http\Controllers\ResetPasswordController;
-use App\Http\Controllers\RouteController;
 use App\Http\Controllers\SetPasswordController;
 use App\Http\Controllers\UnitController;
 use App\Http\Controllers\UserController;
@@ -45,24 +45,28 @@ Route::get('/', function () {
     return to_route('login');
 });
 
-Route::controller(LoginController::class)->group(function(){
+Route::middleware(['guest'])->group(function(){
+    
+    Route::controller(LoginController::class)->group(function(){
 
-    Route::get('/login', 'index')->name('login');
+        Route::get('/login', 'index')->name('login');
 
-    Route::post('/login', 'login');
+        Route::post('/login', 'login');
 
-    Route::post('/logout', 'logout')->name('logout')->middleware('auth');
-});
+        Route::post('/logout', 'logout')->name('logout')->middleware('auth');
+    });
 
-Route::controller(ForgetPasswordController::class)->group(function(){
-        
-    Route::get('/forget-password', 'index')->name('forget-password');
+    Route::controller(ForgetPasswordController::class)->group(function(){
+            
+        Route::get('/forget-password', 'index')->name('forget-password');
 
-    Route::post('/forget-password/email-send', 'confirmation')->name('forget-password.email');
+        Route::post('/forget-password/email-send', 'confirmation')->name('forget-password.email');
 
-    Route::get('/forget-password/{user:slug}/new-password', 'edit')->name('forget-password.change');
+        Route::get('/forget-password/{user:slug}/new-password', 'edit')->name('forget-password.change');
 
-    Route::put('/forget-password/{user:slug}/new-password', 'update')->name('forget-password.update');
+        Route::put('/forget-password/{user:slug}/new-password', 'update')->name('forget-password.update');
+
+    });
 
 });
 
@@ -76,11 +80,9 @@ Route::middleware(['auth'])->group(function() {
 
     });
     
-    Route::controller(RouteController::class)->group(function(){
+    Route::controller(OverviewController::class)->group(function(){
 
         Route::get('/dashboard', 'index')->name('dashboard');
-
-        // Route::get('/employee', 'employee')->name('employee');
 
     });
 
@@ -177,12 +179,6 @@ Route::middleware(['auth'])->group(function() {
         Route::delete('/courses/{course}/{user}/destroy', 'destroy')->name('courses.enroll.destroy');
     });
 
-    Route::controller(EmployeeController::class)->group(function(){
-
-        Route::get('/my-courses', 'index')->name('my-courses.index');
-        
-    });
-
     Route::controller(CourseEnrollmentController::class)->group(function(){
 
         Route::get('users/{user:slug}/enroll-courses', 'index')->name('enroll-courses.create');
@@ -191,6 +187,12 @@ Route::middleware(['auth'])->group(function() {
 
         Route::delete('users/{user}/{course}/destroy', 'destroy')->name('enroll-courses.destroy');
 
+    });
+
+    Route::controller(EmployeeController::class)->group(function(){
+
+        Route::get('/my-courses', 'index')->name('my-courses.index');
+        
     });
 
 });

@@ -62,11 +62,15 @@
             <section class="course-list">
                 <div class="course-detail">
                     <div class="course-image">
-                        <img src="{{asset('storage/'.$course->images->image)}}" alt="">
+                        @if ($course->images)
+                            <img src="{{asset('storage/'.$course->images->image)}}" alt="course-image">
+                        @else
+                            <img src="{{asset('storage/images/default.jpg')}}" alt="course-image">
+                        @endif
                     </div>
                     <div>
                         <a href="{{ route('courses') }}?category={{ $course->category->id }}" class="category-badge">{{$course->category->name}}</a>
-                        <a href="{{ route('courses.show',$course) }}" class="course-head"><h3>{{$course->title}}</h3></a>
+                        <a href="{{ route('courses.show',$course) }}" class="title-link"><h3>{{$course->title}}</h3></a>
                         <div class="course-created-details">
                             <p>Created By:<span>{{$course->user->name}}</span></p>
                             <p>Created On:<span>{{$course->created_at->format('F d,Y')}}</span></p>
@@ -74,7 +78,7 @@
                         <p>{{$course->description}}</p>
                         <div class="level-enrolled">
                             <p><i class="bi bi-bar-chart-fill"></i> {{$course->level->name}}</p>
-                            <p><i class="bi bi-easel"></i> Enrolled</p>
+                            <p><i class="bi bi-easel"></i> {{$course->enrollments_count}} Enrolled</p>
                         </div>
                     </div>
                 </div>

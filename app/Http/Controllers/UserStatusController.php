@@ -8,7 +8,8 @@ class UserStatusController extends Controller
 {
     public function __invoke(User $user)
     {
-       
+        $this->authorize('update', $user);
+    
         if ($user->status)
         {
             $user->update([

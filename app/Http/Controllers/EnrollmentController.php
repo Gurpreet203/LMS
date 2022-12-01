@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Course;
 use App\Models\Status;
 use App\Models\User;
+use App\Notifications\EnrollmentNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
@@ -22,12 +24,14 @@ class EnrollmentController extends Controller
             ->employee()
             ->get();
 
-        return view('enrollment.index', [
+        return view('trainers.courses.enrollment', [
             'course' => $course,
             'users' => $users,
             'enrolledUsers' => $course->enrollments()->get()
         ]);
     }
+
+    // enrolled multiple users into one course (1 Course -> multiple users)
 
     public function store(Request $request, Course $course)
     {
@@ -38,7 +42,6 @@ class EnrollmentController extends Controller
 
         $attributes = Validator::make($request->all(), [
             'user_ids' => [
-                'bail',
                 'required',
                 'array',
                 'min:1',
@@ -56,7 +59,9 @@ class EnrollmentController extends Controller
             [
                 'created_by' => Auth::id()
             ]);
-
+            
+        Notification::send(User::find($validated['user_ids']), new EnrollmentNotification(Auth::user(), $course->title));
+        
         return back()->with('status', 'Succcessfuly enrolled');
     }
 

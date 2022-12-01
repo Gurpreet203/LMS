@@ -15,8 +15,10 @@ class CourseControllerr extends Controller
 {
     public function index()
     {
-        return view('courses.index', [
-            'courses' => Course::latest()
+        return view('trainers.courses.index', [
+            'courses' => Course::with('user','images','category','level','status')
+                ->withCount('enrollments')
+                ->latest()
                 ->visibleTo()
                 ->active()
                 ->search(request([
@@ -35,8 +37,10 @@ class CourseControllerr extends Controller
 
     public function create()
     {
-        return view('courses.create', [
-            'categories' => Category::active()->visibleTo()->get(),
+        return view('trainers.courses.create', [
+            'categories' => Category::active()
+                ->visibleTo()
+                ->get(),
             'levels' => Level::get(),
             'statuses' => Status::get()
         ]);
@@ -56,7 +60,7 @@ class CourseControllerr extends Controller
                 )
             ],
             'level_id' => ['required',
-                Rule::in(array_values(Level::valid()))
+                Rule::exists('levels', 'id')
             ],
             'image' => 'mimes:jpg,png,jpeg,gif'
         ]);
@@ -66,15 +70,16 @@ class CourseControllerr extends Controller
             'certificate' => $request['certificate'] ? true : false,
             'status_id' => Status::DRAFT,
         ];
-
-        $image = $request->file('image')->store('/images');
-
         $course = Course::create($attributes);
-
-        CourseImage::create([
-            'course_id' => $course->id,
-            'image' => $image
-        ]);
+        
+        if ($request->file('image'))
+        {
+            $image = $request->file('image')->store('/images'); 
+            CourseImage::create([
+                'course_id' => $course->id,
+                'image' => $image
+            ]);  
+        }
 
         if($request['save'] == 'save')
         {
@@ -86,7 +91,9 @@ class CourseControllerr extends Controller
 
     public function edit(Course $course)
     {
-        return view('courses.edit', [
+        $this->authorize('update', $course);
+
+        return view('trainers.courses.edit', [
             'course' => $course,
             'statuses' => Status::get(),
             'categories' => Category::active()->visibleTo()->get(),
@@ -96,6 +103,8 @@ class CourseControllerr extends Controller
 
     public function update(Request $request, Course $course)
     {
+        $this->authorize('update', $course);
+        
         $attributes = $request->validate([
             'title' => ['required', 'min:3', 'max:255'],
             'description' => ['required', 'min:5'],
@@ -108,7 +117,7 @@ class CourseControllerr extends Controller
                 )
             ],
             'level_id' => ['required',
-                Rule::in(array_values(Level::valid()))
+                Rule::exists('levels', 'id')
             ],
             'image' => ['mimes:jpg,png,jpeg,gif']
         ]);
@@ -128,7 +137,9 @@ class CourseControllerr extends Controller
 
     public function show(Course $course)
     {
-        return view('courses.show', [
+        $this->authorize('view', $course);
+        
+        return view('trainers.courses.show', [
             'course' => $course
         ]);
     }

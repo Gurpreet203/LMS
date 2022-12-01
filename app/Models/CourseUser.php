@@ -18,13 +18,13 @@ class CourseUser extends Pivot
         'created_by'
     ];
 
-    public function user()
-    {
-        $this->hasMany(User::class);
-    }
+    // public function user()
+    // {
+    //     $this->hasMany(User::class);
+    // }
 
-    public function course()
-    {
-        $this->hasMany(Course::class);
-    }
+    // public function course()
+    // {
+    //     $this->hasMany(Course::class);
+    // }
 }

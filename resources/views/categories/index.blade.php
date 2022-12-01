@@ -14,8 +14,10 @@
                         <span class="dropdown-toggle "></span>
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item" href="{{ route('categories') }}?date=latest">Latest Created Date</a></li>
-                        <li><a class="dropdown-item" href="{{ route('categories') }}">Oldest Created Date</a></li>
+                        <li><a class="dropdown-item" href="{{ route('categories') }}?sort=A-Z">Name A-Z</a></li>
+                        <li><a class="dropdown-item" href="{{ route('categories') }}?sort=Z-A">Name Z-A</a></li>
+                        <li><a class="dropdown-item" href="{{ route('categories') }}">Latest Created Date</a></li>
+                        <li><a class="dropdown-item" href="{{ route('categories') }}?sort=oldest">Oldest Created Date</a></li>
                     </ul>
                 </div>
             </div>
@@ -39,7 +41,7 @@
                         
                         <tr>
                             <td>
-                                {{$category->name}}
+                                <a href="{{route('categories.edit', $category)}}" class="title-link">{{$category->name}}</a>
                             </td>
 
                             <td>
@@ -48,7 +50,7 @@
                             </td>
 
                             <td>
-                                {{$category->courses->count()}}
+                                {{$category->courses_count}}
                             </td>
                             
                             
@@ -71,26 +73,21 @@
                                         <i class="bi bi-three-dots-vertical"></i>
                                     </button>
                                     <ul class="dropdown-menu">
-                                    <li>
-                                            @if($category->status)
-                                                
-                                                    <form action="{{ route('categories.status',$category) }}" method="post">
-                                                        @csrf
-                                                        <div class="drop-items-icon">
-                                                            <i class="bi bi-slash-circle"></i>
-                                                            <input type="submit" value="Deactive" name="deactive" class="drop-items">
-                                                        </div>
-                                                    </form>
-                                            @else
-                                                
-                                                <form action="{{ route('categories.status',$category) }}" method="post">
-                                                    @csrf
+                                        <li>    
+                                            <form action="{{ route('categories.status',$category) }}" method="post">
+                                                @csrf
+                                                @if($category->status)
+                                                    <div class="drop-items-icon">
+                                                        <i class="bi bi-slash-circle"></i>
+                                                        <input type="submit" value="Deactive" name="deactive" class="drop-items">
+                                                    </div>
+                                                @else
                                                     <div class="drop-items-icon">
                                                         <i class="bi bi-circle"></i>
                                                         <input type="submit" value="Active" name="active" class="drop-items">
                                                     </div>
-                                                </form>  
-                                            @endif
+                                                @endif
+                                            </form>
                                         </li>
                                         
                                         <li class="drop-items">
@@ -115,9 +112,6 @@
                                     </ul>
                                 </div>
                             </td> 
-
-                            
-                        
                         </tr>
                     @endforeach
 

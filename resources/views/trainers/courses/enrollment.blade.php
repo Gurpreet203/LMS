@@ -14,20 +14,21 @@
                 <span class="dropdown-toggle "></span>
             </button>
             <ul class="dropdown-menu" style="padding: 10px;">
-                <form action="{{  route('courses.enroll.store', $course) }}" method="POST">
+                
+                @if ($users->count()>0)
+                    <form action="{{  route('courses.enroll.store', $course) }}" method="POST">
                     @csrf
-                    @if ($users->count()>0)
                         @foreach ($users as $user)
-                            <li>
+                            <li class="enroll-list">
                                 <input type="checkbox" value="{{$user->id}}" name="user_ids[]" class="form-check-input">
                                 <label for="user_ids[]" class="form-check-label">{{ $user->name }}</label>
                             </li>
                         @endforeach  
-                    @else
-                        <h5>No User Found</h5>                      
-                    @endif
-                        <input type="submit" class="btn btn-secondary" style="width: 100%" value="Add" name="add">
-                </form>
+                        <input type="submit" class="btn btn-secondary btn-sm enrollBtn" value="Add" name="add">
+                    </form>
+                @else
+                    <p style="color: grey;text-align:center;">No User Exist</p>                      
+                @endif    
             </ul>
             <span class="text-danger">
                 @error('user_ids')
@@ -61,7 +62,7 @@
                 @endforeach
             @else
                 </table>
-                <h3>No User Found</h3>
+                <h3 style="text-align: center">No User Found</h3>
             @endif
         </table>
     </div>

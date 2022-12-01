@@ -11,12 +11,14 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        $categories = Category::latest()
+        $categories = Category::with('user')
+            ->withCount('courses')
+            ->latest()
             ->visibleTo()
-            ->search(request(['search', 'date']))
-            ->paginate(10);
+            ->search(request(['search', 'sort']))
+            ->paginate();
 
-        return view('categories.index',[
+        return view('categories.index', [
             'categories' => $categories
         ]);
     }
@@ -35,12 +37,13 @@ class CategoryController extends Controller
         $attributes+=[
             'created_by' => Auth::id()
         ];
-
-        $category = Category::where('name', $attributes['name'])->withTrashed()->first();
+        $category = Category::where('name', $attributes['name'])
+            ->withTrashed()
+            ->first();
         
-        if($category)
+        if ($category)
         {
-            if($category->deleted_at!=null)
+            if ($category->deleted_at!=null)
             {
                 $category->restore();
                 $category->update($attributes);
@@ -50,13 +53,14 @@ class CategoryController extends Controller
         {
             Category::create($attributes);
         }
-
-
-        return to_route('categories')->with('status','Successfully Created');
+    
+        return to_route('categories')->with('status', 'Successfully Created');
     }
 
     public function edit(Category $category)
     {
+        $this->authorize('update', $category);
+
         return view('categories.edit', [
             'category' => $category
         ]);
@@ -64,29 +68,29 @@ class CategoryController extends Controller
 
     public function update(Request $request , Category $category)
     {
+        $this->authorize('update', $category);
+
         $attributes = $request->validate([
-            'name' => ['required', 'min:3', 'max:255', 
-                Rule::in(
-                    Category::visibleTo()
-                        ->pluck('id')
-                        ->toArray()
+            'name' => ['required', 'min:3', 'max:255'],
+            'category' => ['required',
+                    Rule::in(
+                        Category::visibleTo()
+                            ->get()
+                            ->pluck('slug')
+                            ->toArray()
                 )],
         ]);
 
-        $updated = $category->update($attributes);
+        $category->update($attributes);
+        
 
-        if($updated)
-        {
-            return to_route('categories')->with('status','Successfully Updated');
-        }
-        else
-        {
-            return to_route('categories')->with('error','Something Went Wrong In Connection');
-        }
+        return to_route('categories')->with('status','Successfully Updated');
     }
 
     public function delete(Category $category)
     {
+        $this->authorize('delete', $category);
+
         $category->delete();
 
         return back()->with('status','Successfully Deleted');

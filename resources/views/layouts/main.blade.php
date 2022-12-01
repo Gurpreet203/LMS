@@ -17,7 +17,7 @@
         </div>
         <ul>
             
-           @if (Auth::id() != 3)
+           @notEmployee
             <a href="{{ route('dashboard') }}" id="{{ Request::url() == route('dashboard') ? 'hovereffect' : '' }}"><li><i class="bi bi-speedometer2"></i> Overview </li></a>
                 
             <a href="{{ route('users') }}" id="{{ Request::url() == route('users') ? 'hovereffect' : '' }}"><li><i class="bi bi-people-fill"></i> Users </li></a>
@@ -34,7 +34,7 @@
 
             @else
                 <a href="{{ route('my-courses.index') }}" id="{{ Request::url() == route('my-courses.index') ? 'hovereffect' : '' }}"><li><i class="bi bi-files"></i> Course List</li></a>
-            @endif
+            @endnotEmployee
 
         </ul>
     </nav>
