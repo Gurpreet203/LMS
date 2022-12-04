@@ -24,4 +24,9 @@ class Unit extends Model
             ]
         ];
     }
+
+    public function tests()
+    {
+        return $this->hasMany(Test::class);
+    }
 }

@@ -16,7 +16,7 @@ class CategoryController extends Controller
             ->latest()
             ->visibleTo()
             ->search(request(['search', 'sort']))
-            ->paginate();
+            ->simplePaginate();
 
         return view('categories.index', [
             'categories' => $categories
@@ -72,18 +72,10 @@ class CategoryController extends Controller
 
         $attributes = $request->validate([
             'name' => ['required', 'min:3', 'max:255'],
-            'category' => ['required',
-                    Rule::in(
-                        Category::visibleTo()
-                            ->get()
-                            ->pluck('slug')
-                            ->toArray()
-                )],
         ]);
 
         $category->update($attributes);
         
-
         return to_route('categories')->with('status','Successfully Updated');
     }
 

@@ -2,6 +2,7 @@
 
 namespace App\Notifications;
 
+use App\Models\Course;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -17,7 +18,7 @@ class EnrollmentNotification extends Notification
      *
      * @return void
      */
-    public function __construct(User $user, $course)
+    public function __construct(User $user, Course $course)
     {
         $this->user = $user;
         $this->course = $course;
@@ -44,7 +45,7 @@ class EnrollmentNotification extends Notification
     {
         return (new MailMessage)
                     ->greeting('Hello '.$notifiable->name)
-                    ->line('This is to inform you that you are enrolled in '.$this->course.' course')
+                    ->line('This is to inform you that you are enrolled in '.$this->course->title.' course')
                     ->line('Thank you!');
     }
 

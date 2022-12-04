@@ -123,6 +123,11 @@
                                     @endif
                                 @endforeach
                             </li>
+                            <span class="text-danger">
+                                @error('statusUpdate')
+                                    {{$message}}
+                                @enderror
+                            </span>
                         </ul>
                     </div>
                 </div>

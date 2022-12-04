@@ -47,7 +47,7 @@ input::placeholder {
 
 .dashboard {
     display: grid;
-    grid-template-columns: 200px 1fr;
+    grid-template-columns: 0.2fr 1fr;
     background-color: rgb(243, 244, 246);
 }
 
@@ -71,7 +71,7 @@ input::placeholder {
     list-style: none;
     padding: 10px;
     color: white;
-    padding: 20px;
+    padding: 20px 40px;
 }
 
 .sidebar ul a {
@@ -191,7 +191,7 @@ iframe {
 .nav-bottom {
     display: flex;
     justify-content: space-between;
-    padding: 20px;
+    padding: 20px 40px;
 }
 .nav-bottom h1 {
     font-size: 22px;
@@ -543,7 +543,38 @@ iframe {
     justify-content: space-between;
     width: 95%;
 }
+.form-label {
+    font-weight: 500;
+}
 
 ::file-selector-button {
     width: 100%;
+}
+
+.add-test-link {
+    display: flex;
+    gap: 50px;
+    margin: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
+}
+.test {
+    text-decoration: none;
+}
+.test i {
+    font-size: 4rem;
+}
+.test span {
+    display: block;
+    font-size: 18px;
+}
+
+.mine-bread {
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+.add-item {
+    text-align: right;
 }

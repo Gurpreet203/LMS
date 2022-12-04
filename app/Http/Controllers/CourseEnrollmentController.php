@@ -55,15 +55,12 @@ class CourseEnrollmentController extends Controller
                 'created_by' => Auth::id()
             ]
         );
-
-        $course = implode(" , ",
-                    Course::find($attributes['course_ids'])
-                        ->pluck('title')
-                        ->toArray()
-                );
-
-        Notification::send($user, new EnrollmentNotification(Auth::user(), $course));
-
+        $courses = Course::find($attributes['course_ids']);
+        
+        $courses->each(function($course)use($user){
+            Notification::send($user, new EnrollmentNotification(Auth::user(), $course));
+        });
+        
         return back()->with('status', 'Succcessfuly Enrolled');
     }
 

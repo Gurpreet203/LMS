@@ -60,7 +60,7 @@ class EnrollmentController extends Controller
                 'created_by' => Auth::id()
             ]);
             
-        Notification::send(User::find($validated['user_ids']), new EnrollmentNotification(Auth::user(), $course->title));
+        Notification::send(User::find($validated['user_ids']), new EnrollmentNotification(Auth::user(), $course));
         
         return back()->with('status', 'Succcessfuly enrolled');
     }

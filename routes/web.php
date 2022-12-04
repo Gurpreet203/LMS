@@ -11,8 +11,10 @@ use App\Http\Controllers\CourseStatusController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\OverviewController;
+use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\SetPasswordController;
+use App\Http\Controllers\TestController;
 use App\Http\Controllers\UnitController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserStatusController;
@@ -44,31 +46,28 @@ Route::get('/', function () {
 
     return to_route('login');
 });
-
-Route::middleware(['guest'])->group(function(){
     
-    Route::controller(LoginController::class)->group(function(){
+Route::controller(LoginController::class)->group(function(){
 
-        Route::get('/login', 'index')->name('login');
+    Route::get('/login', 'index')->name('login');
 
-        Route::post('/login', 'login');
+    Route::post('/login', 'login');
 
-        Route::post('/logout', 'logout')->name('logout')->middleware('auth');
-    });
+    Route::post('/logout', 'logout')->name('logout')->middleware('auth');
+});
 
-    Route::controller(ForgetPasswordController::class)->group(function(){
-            
-        Route::get('/forget-password', 'index')->name('forget-password');
+Route::controller(ForgetPasswordController::class)->group(function(){
+        
+    Route::get('/forget-password', 'index')->name('forget-password');
 
-        Route::post('/forget-password/email-send', 'confirmation')->name('forget-password.email');
+    Route::post('/forget-password/email-send', 'confirmation')->name('forget-password.email');
 
-        Route::get('/forget-password/{user:slug}/new-password', 'edit')->name('forget-password.change');
+    Route::get('/forget-password/{user:slug}/new-password', 'edit')->name('forget-password.change');
 
-        Route::put('/forget-password/{user:slug}/new-password', 'update')->name('forget-password.update');
-
-    });
+    Route::put('/forget-password/{user:slug}/new-password', 'update')->name('forget-password.update');
 
 });
+
 
 Route::middleware(['auth'])->group(function() {
 
@@ -186,6 +185,33 @@ Route::middleware(['auth'])->group(function() {
         Route::post('users/{user:slug}/enroll-courses', 'store')->name('enroll-courses.store');
 
         Route::delete('users/{user}/{course}/destroy', 'destroy')->name('enroll-courses.destroy');
+
+    });
+
+    Route::controller(TestController::class)->group(function(){
+
+        Route::get('/courses/{course:slug}/unit/{unit:slug}/createTest', 'create')->name('test.create');
+
+        Route::post('/courses/{course:slug}/unit/{unit:slug}/storeTest', 'store')->name('test.store');
+
+        Route::get('/courses/{course:slug}/unit/{unit:slug}/test/{test}/editTest', 'edit')->name('test.edit');
+
+        Route::put('/courses/{course:slug}/unit/{unit:slug}/test/{test}/updateTest', 'update')->name('test.update');
+
+        Route::delete('/courses/{course:slug}/unit/{unit:slug}/test/{test}/destroyTest', 'destroy')->name('test.destroy');
+    });
+
+    Route::controller(QuestionController::class)->group(function(){
+
+        Route::get('/courses/{course:slug}/unit/{unit:slug}/test/{test}/createQuestions', 'create')->name('question.create');
+
+        Route::post('/courses/{course:slug}/unit/{unit:slug}/test/{test}/storeQuestions', 'store')->name('question.store');
+
+        Route::get('/courses/{course:slug}/unit/{unit:slug}/test/{test}/editQuestions', 'edit')->name('question.edit');
+
+        Route::put('/courses/{course:slug}/unit/{unit:slug}/test/{test}/updateQuestions', 'update')->name('question.update');
+
+        Route::delete('/courses/unit/test/{question}/deleteQuestions', 'destroy')->name('question.destroy');
 
     });
 

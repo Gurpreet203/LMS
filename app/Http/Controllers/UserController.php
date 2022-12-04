@@ -79,7 +79,7 @@ class UserController extends Controller
         }
         
         Notification::send($user, new UserNotification(Auth::user()));
-        
+
         if($request['save'] == 'save')
         {
             return to_route('users')->with('status', 'Successfully Created');
