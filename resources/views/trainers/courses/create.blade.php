@@ -67,7 +67,7 @@
         <div>
             <div class="mb-3">
                 <label for="title" class="form-label">Upload Course Image</label>
-                <input type="file" name="image" class="form-control form-control-sm" placeholder="upload Course Image" required accept=".png, .jpg, .jpeg, .gif">
+                <input type="file" name="image" class="form-control form-control-sm" placeholder="upload Course Image" accept=".png, .jpg, .jpeg, .gif">
                 <span class="text-danger">
                     @error('image')
                         {{$message}}

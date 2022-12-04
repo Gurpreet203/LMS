@@ -16,8 +16,8 @@ class Question extends Model
     public function test()
     {
         return $this->belongsTo(Test::class)
-                    ->withPivot()
-                    ->using(TestQuestion::class);
+            ->withPivot()
+            ->using(TestQuestion::class);
     }
 
     public function option()

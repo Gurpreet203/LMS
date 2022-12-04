@@ -23,7 +23,7 @@ class Test extends Model
     public function questions()
     {
         return $this->hasMany(Question::class)
-                    ->withPivot()
-                    ->using(TestQuestion::class);
+            ->withPivot()
+            ->using(TestQuestion::class);
     }
 }
