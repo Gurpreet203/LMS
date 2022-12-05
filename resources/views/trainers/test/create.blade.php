@@ -27,16 +27,24 @@
             <div class="row g-3">
                 <div class="col">
                     <label for="duration" class="form-label">Duration</label>
-                    <input type="text" class="form-control" placeholder="in minutes" name="duration" value="{{old('duration')}}">
+                    <input type="text" class="form-control" placeholder="in minutes" name="duration" value="{{old('duration')}}" required>
+                    <span class="text-danger">
+                        @error('duration')
+                            {{$message}}
+                        @enderror
+                    </span>
                 </div>
-                <span class="text-danger">
-                    @error('duration')
-                        {{$message}}
-                    @enderror
-                </span>
-                {{-- <div class="col">
-                    <input type="text" class="form-control" placeholder="Last name">
-                </div> --}}
+                
+                <div class="col">
+                    <label for="pass_score" class="form-label">Pass Score</label>
+                    <input type="text" class="form-control" name="pass_score" value="{{old('pass_score')}}" required>
+                    <span class="percent">%</span>
+                    <span class="text-danger">
+                        @error('pass_score')
+                            {{$message}}
+                        @enderror
+                    </span>
+                </div>
             </div>
             <div class="mt-3">
                 <button type="submit" value="save" name="save" class="btn btn-secondary">Save</button>

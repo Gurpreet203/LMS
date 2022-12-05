@@ -7,8 +7,8 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item" ><h4><a href="{{ route('courses') }}" style="text-decoration: none;">Course</a></h4></li>
                 <li class="breadcrumb-item" ><a href="{{ route('courses.show', $course) }}" class="mine-bread">{{$course->title}}</a></li>
-                <li class="breadcrumb-item" ><a href="{{ route('units.edit', [$course,$unit]) }}" class="mine-bread">{{$unit->title}}</a></li>
-                <li class="breadcrumb-item" ><a href="{{ route('test.edit', [$course,$unit,$test]) }}" class="mine-bread">{{$test->name}}</a></li>
+                <li class="breadcrumb-item" ><a href="{{ route('units.edit', [$course, $unit]) }}" class="mine-bread">{{$unit->title}}</a></li>
+                <li class="breadcrumb-item" ><a href="{{ route('test.edit', [$course, $unit, $test]) }}" class="mine-bread">{{$test->name}}</a></li>
                 <li class="breadcrumb-item active" aria-current="page" style="width: 600px;"><h4>Add Questions</h4></li>
             </ol>
         </div>
@@ -26,42 +26,48 @@
                 </span>
             </div>
             <div class="mb-2 add-item">
-                <a href="#" id="add_more_fields"><i class="bi bi-plus"></i> Add More</a>
+                <a href="#" id="add_more_fields"><i class="bi bi-plus"></i> Add More Options</a>
             </div>
             <div class="mb-3">
                 <label for="options[]" class="form-label">Options</label>
-                <div class="radio-input">
-                        <input type="radio" name="radio" value="1">
-                    
-                        <input type="text" name="options[]" id="options[]" class="form-control mb-3" placeholder="option">
-                            <span class="text-danger">
-                                @error('options[]')
+                <div class="outter-input-radio">
+                    <input type="text" name="options[]" id="options[]" class="form-control mb-3" placeholder="option">
+                        <span class="text-danger">
+                            @error('options[]')
+                                {{$message}}
+                            @enderror
+                        </span>
+
+                    <input type="radio" name="radio" value="1" id="radio">
+                        <span class="text-danger">
+                                @error('radio')
                                     {{$message}}
                                 @enderror
-                            </span>
-                    
+                        </span>
                 </div>
-                <div class="radio-input">
+                <div class="outter-input-radio">
+                    <input type="text" name="options[]" id="options[]" class="form-control mb-3" placeholder="option">
+                        <span class="text-danger">
+                            @error('options[]')
+                                {{$message}}
+                            @enderror
+                        </span>
                     
-                        <input type="radio" name="radio" value="2">
-                   
-                        <input type="text" name="options[]" id="options[]" class="form-control mb-3" placeholder="option">
-                            <span class="text-danger">
-                                @error('options[]')
-                                    {{$message}}
-                                @enderror
-                            </span>
-                    
+                    <input type="radio" name="radio" value="2" id="radio">
+                        <span class="text-danger">
+                            @error('radio')
+                                {{$message}}
+                            @enderror
+                        </span>
                 </div>
 
-                <div class="radio-input" id="radio-input">
-                    <div id="radio"></div>
-                    <div class="mb-3" id="container"></div>
+                <div class="outter-input-radio">
+                    <div id="input-field" style="width: 92%"></div>
+                    <div class="radio-input" id="radio-input"></div>
                 </div>
                 
             </div>
-           
-            <div id="radio"></div>
+
             <button type="submit" value="save" name="save" class="btn btn-secondary">Save</button>
             <button type="submit" value="save-another" name="save" class="btn btn-secondary">Save & Add Another</button>
             <a href="{{ route('test.edit',[$course, $unit, $test]) }}" class="btn btn-outline-secondary">Cancel</a>
@@ -72,7 +78,7 @@
 
     <div>
         @foreach ($test->questions as $question)
-        <section class="unit">
+        <section class="unit unit-details">
             <div class="unit-detail">
                 <div>
                     <i class="bi bi-grip-vertical" style="font-size: 25px;color:grey;"></i>
@@ -82,7 +88,7 @@
                 </div>
             </div>
             <div class="unit-detail-right">
-                <a href="{{ route('question.edit',[$course, $unit, $test, $question]) }}" class="unit-edit" style="width: 30px"><i  style="font-size: 18px;" class="bi bi-pencil-square"></i></a>
+                <a href="{{ route('question.edit', [$course, $unit, $test, $question]) }}" class="unit-edit" style="width: 30px"><i  style="font-size: 18px;" class="bi bi-pencil-square"></i></a>
                 <form action="{{ route('question.destroy',[$question]) }}" method="post">
                     @csrf
                     @method('DELETE')
@@ -95,34 +101,32 @@
 
     <script type="text/javascript">
         var options = document.getElementById('radio-input');
-        var radio = document.getElementById('radio');
+        var input_filed = document.getElementById('input-field');
+        var radio = document.querySelectorAll('#radio');
         var add_more_fields = document.getElementById('add_more_fields');
 
         add_more_fields.onclick = function(){
-            var i =3;
-        var newField = document.createElement('input');
-        newField.setAttribute('type','text');
-        newField.setAttribute('name','options[]');
-        newField.setAttribute('id','options[]');
-        newField.setAttribute('class','form-control mb-3');
-        newField.setAttribute('placeholder','option');
 
-        var newRadio = document.createElement('input');
-        newRadio.setAttribute('type','radio');
-        newRadio.setAttribute('name','radio');
-        newRadio.setAttribute('value', i)
-        newField.setAttribute('class','form-check mb-3');
+            let count = radio.length + 1;
 
-        options.appendChild(newRadio);
-        options.appendChild(newField);
-        i++;
-        }
+            var newField = document.createElement('input');
+            newField.setAttribute('type','text');
+            newField.setAttribute('name','options[]');
+            newField.setAttribute('id','options[]');
+            newField.setAttribute('class','form-control mb-3');
+            newField.setAttribute('placeholder','option');
 
-        function my_name()
-        {
-            document.getElementById("right_option").value= document.getElementById('options[]').value;
+            var newRadio = document.createElement('input');
+            newRadio.setAttribute('type','radio');
+            newRadio.setAttribute('name','radio');
+            newRadio.setAttribute('value', count)
+            newRadio.setAttribute('class','form-check mb-3');
+            newRadio.setAttribute('id','radio');
+
+            input_filed.appendChild(newField);
+            options.appendChild(newRadio);
+        
         }
 </script>
 
 @endsection
-

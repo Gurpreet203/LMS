@@ -140,7 +140,7 @@ class CourseControllerr extends Controller
         $this->authorize('view', $course);
         
         return view('trainers.courses.show', [
-            'course' => $course
+            'course' => $course,
         ]);
     }
 }

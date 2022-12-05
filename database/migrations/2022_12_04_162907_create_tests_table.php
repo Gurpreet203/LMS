@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignId('unit_id')->constrained()->cascadeOnDelete();
             $table->string('name');
             $table->float('duration');
+            $table->float('pass_score');
             $table->timestamps();
         });
     }

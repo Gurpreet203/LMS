@@ -12,7 +12,8 @@ class Test extends Model
     protected $fillable = [
         'unit_id',
         'name',
-        'duration'
+        'duration',
+        'pass_score'
     ];
 
     public function unit()
@@ -22,8 +23,9 @@ class Test extends Model
 
     public function questions()
     {
-        return $this->hasMany(Question::class)
-            ->withPivot()
+        return $this->belongsToMany(Question::class, 'test_question')
+            ->withPivot('id')
+            ->withTimestamps()
             ->using(TestQuestion::class);
     }
 }

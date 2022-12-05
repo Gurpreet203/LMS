@@ -50,7 +50,7 @@
 
     <div>
         @foreach ($unit->tests as $test)
-        <section class="unit">
+        <section class="unit unit-details">
             <div class="unit-detail">
                 <div>
                     <i class="bi bi-grip-vertical" style="font-size: 25px;color:grey;"></i>

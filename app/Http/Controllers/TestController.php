@@ -21,7 +21,8 @@ class TestController extends Controller
     {
         $attributes = $request->validate([
             'name' => 'required|min:3|max:255',
-            'duration' => 'required|numeric'
+            'duration' => 'required|numeric',
+            'pass_score' => 'required|numeric|gt:0'
         ]);
         $attributes += [
             'unit_id' => $unit->id
@@ -50,7 +51,8 @@ class TestController extends Controller
     {
         $attributes = $request->validate([
             'name' => 'required|min:3|max:255',
-            'duration' => 'required|numeric'
+            'duration' => 'required|numeric',
+            'pass_score' => 'required|numeric|gt:0'
         ]);
 
         $test->update($attributes);

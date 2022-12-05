@@ -480,13 +480,15 @@ iframe {
     margin: 20px;
 }
 .unit {
-    display: flex;
-    justify-content: space-between;
     padding: 10px 20px;
     border-radius: 5px;
     background-color: white;
     margin: 20px;
     box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
+}
+.unit-details {
+    display: flex;
+    justify-content: space-between;
 }
 .unit-detail {
     display: flex;
@@ -577,4 +579,34 @@ iframe {
 }
 .add-item {
     text-align: right;
+}
+.outter-input-radio {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+#add_more_fields {
+    text-decoration: none;
+}
+.percent {
+    position: absolute;
+    left: 57%;
+    top: 45%;
+}
+.lessons-detail {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-radius: 10px;
+}
+.lessons-detail:hover {
+    background-color: rgb(11, 133, 239);
+    color: white;
+}
+.lessons-detail span {
+    background-color: rgb(230, 239, 250);
+    color: rgb(122, 176, 248);
+    border-radius: 12px;
+    padding: 2px 5px;
+    font-size: 14px;
 }

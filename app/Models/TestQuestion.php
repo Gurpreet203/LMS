@@ -9,7 +9,7 @@ class TestQuestion extends Pivot
 {
     use HasFactory;
 
-    protected $table = 'test_question'; 
+    // protected $table = 'test_question'; 
 
     protected $fillable = [
         'test_id',

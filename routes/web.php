@@ -190,28 +190,28 @@ Route::middleware(['auth'])->group(function() {
 
     Route::controller(TestController::class)->group(function(){
 
-        Route::get('/courses/{course:slug}/unit/{unit:slug}/createTest', 'create')->name('test.create');
+        Route::get('/courses/{course:slug}/units/{unit:slug}/create', 'create')->name('test.create');
 
-        Route::post('/courses/{course:slug}/unit/{unit:slug}/storeTest', 'store')->name('test.store');
+        Route::post('/courses/{course:slug}/units/{unit:slug}/store', 'store')->name('test.store');
 
-        Route::get('/courses/{course:slug}/unit/{unit:slug}/test/{test}/editTest', 'edit')->name('test.edit');
+        Route::get('/courses/{course:slug}/units/{unit:slug}/test/{test}/edit', 'edit')->name('test.edit');
 
-        Route::put('/courses/{course:slug}/unit/{unit:slug}/test/{test}/updateTest', 'update')->name('test.update');
+        Route::put('/courses/{course:slug}/units/{unit:slug}/test/{test}/update', 'update')->name('test.update');
 
-        Route::delete('/courses/{course:slug}/unit/{unit:slug}/test/{test}/destroyTest', 'destroy')->name('test.destroy');
+        Route::delete('/courses/{course:slug}/units/{unit:slug}/test/{test}/destroy', 'destroy')->name('test.destroy');
     });
 
     Route::controller(QuestionController::class)->group(function(){
 
-        Route::get('/courses/{course:slug}/unit/{unit:slug}/test/{test}/createQuestions', 'create')->name('question.create');
+        Route::get('/courses/{course:slug}/units/{unit:slug}/test/{test}/create', 'create')->name('question.create');
 
-        Route::post('/courses/{course:slug}/unit/{unit:slug}/test/{test}/storeQuestions', 'store')->name('question.store');
+        Route::post('/courses/unit/test/{test}/storeQuestions', 'store')->name('question.store');
 
-        Route::get('/courses/{course:slug}/unit/{unit:slug}/test/{test}/editQuestions', 'edit')->name('question.edit');
+        Route::get('/courses/{course:slug}/units/{unit:slug}/test/{test}/question/{question}/edit', 'edit')->name('question.edit');
 
-        Route::put('/courses/{course:slug}/unit/{unit:slug}/test/{test}/updateQuestions', 'update')->name('question.update');
+        Route::put('/courses/unit/test/question/{question}/update', 'update')->name('question.update');
 
-        Route::delete('/courses/unit/test/{question}/deleteQuestions', 'destroy')->name('question.destroy');
+        Route::delete('/courses/unit/test/{question}/delete', 'destroy')->name('question.destroy');
 
     });
 
