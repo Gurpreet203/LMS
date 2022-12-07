@@ -12,20 +12,12 @@
         <div class="mb-3">
             <label for="first_name" class="form-label">First Name</label>
             <input type="text" name="first_name" value="{{$user->first_name}}" class="form-control form-control-sm" required>
-            <span class="text-danger">
-                @error('first_name')
-                    {{$message}}
-                @enderror
-            </span>
+            <x-error name="first_name" />
         </div>
         <div class="mb-3">
             <label for="last_name" class="form-label">Last Name</label>
             <input type="text" name="last_name" value="{{$user->last_name}}" class="form-control form-control-sm" required>
-            <span class="text-danger">
-                @error('last_name')
-                    {{$message}}
-                @enderror
-            </span>
+            <x-error name="last_name" />
         </div>
         <div class="mb-3">
             <label for="email" class="form-label">Email</label>
@@ -35,11 +27,7 @@
         <div class="mb-3">
             <label for="phone" class="form-label">Phone</label>
             <input type="text" name="phone" value="{{$user->phone}}" class="form-control form-control-sm" required>
-            <span class="text-danger">
-                @error('phone')
-                    {{$message}}
-                @enderror
-            </span>
+            <x-error name="phone" />
         </div>
 
         @if (Auth::user()->is_admin || Auth::user()->is_subadmin )
@@ -52,11 +40,7 @@
                     @endforeach
                 </select>
         
-                <span class="text-danger">
-                    @error('role_id')
-                        {{$message}}
-                    @enderror
-                </span>
+                <x-error name="role_id" />
             </div>   
         @endif
 

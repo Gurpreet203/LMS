@@ -12,38 +12,22 @@
         <div class="mb-3">
             <label for="first_name" class="form-label">First Name</label>
             <input type="text" name="first_name" class="form-control form-control-sm" value="{{ old('first_name') }}" required>
-            <span class="text-danger">
-                @error('first_name')
-                    {{$message}}
-                @enderror
-            </span>
+            <x-error name="first_name" />
         </div>
         <div class="mb-3">
             <label for="last_name" class="form-label">Last Name</label>
             <input type="text" name="last_name" class="form-control form-control-sm"  value="{{ old('last_name') }}" required>
-            <span class="text-danger">
-                @error('last_name')
-                    {{$message}}
-                @enderror
-            </span>
+            <x-error name="last_name" />
         </div>
         <div class="mb-3">
             <label for="email" class="form-label">Email</label>
             <input type="email" name="email" class="form-control form-control-sm" value="{{ old('email') }}" required>
-            <span class="text-danger">
-                @error('email')
-                    {{$message}}
-                @enderror
-            </span>
+            <x-error name="email" />
         </div>
         <div class="mb-3">
             <label for="phone" class="form-label">Phone</label>
             <input type="text" name="phone" class="form-control form-control-sm"  value="{{ old('phone') }}" required>
-            <span class="text-danger">
-                @error('phone')
-                    {{$message}}
-                @enderror
-            </span>
+            <x-error name="phone" />
         </div>
 
         <div class="mb-3">
@@ -61,11 +45,7 @@
                 </label>
             </div>
 
-            <span class="text-danger">
-                @error('gender')
-                    {{$message}}
-                @enderror
-            </span>
+            <x-error name="gender" />
         </div>
 
         <label for="role_id" class="form-label">Role</label>
@@ -76,11 +56,7 @@
                 @endforeach
             </select>
     
-            <span class="text-danger">
-                @error('role_id')
-                    {{$message}}
-                @enderror
-            </span>
+            <x-error name="role_id" />
         </div>
 
         <div class="mb-3">

@@ -13,7 +13,8 @@ class Unit extends Model
     protected $fillable = [
         'title',
         'description',
-        'slug'
+        'slug',
+        'duration'
     ];
 
     public function sluggable(): array
@@ -28,5 +29,10 @@ class Unit extends Model
     public function tests()
     {
         return $this->hasMany(Test::class);
+    }
+
+    public function lessons()
+    {
+        return $this->hasMany(Lesson::class);
     }
 }

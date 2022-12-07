@@ -16,19 +16,19 @@ class QuestionController extends Controller
 {
     public function create(Course $course, Unit $unit, Test $test)
     {
-        return view('trainers.question.create', [
+        return view('trainers.courses.units.test.question.create', [
             'course' => $course,
             'unit' => $unit,
             'test' => $test
         ]);
     }
 
-    public function store(Request $request, Test $test)
+    public function store(Request $request, Course $course, Unit $unit, Test $test)
     {
-        // dd($request->all());
         $attributes = $request->validate([
             'question' => 'required|min:3',
-            'options' => 'required|min:2|max:255|array',
+            'options' => 'array|size:2',
+            'options.*' => 'required|min:3|max:255',
             'radio' => 'required|min:1|gt:0'
         ]);
 
@@ -45,12 +45,12 @@ class QuestionController extends Controller
        $options->each(function($option) use($question, &$i, $attributes) {
             $i++;
 
-            if($i == $attributes['radio'])
+            if ($i == $attributes['radio'])
             {
                 Option::create([
                     'question_id' => $question->id,
                     'option' => $option,
-                    'answer' => 1
+                    'answer' => true
                 ]);
             }
             else
@@ -62,12 +62,17 @@ class QuestionController extends Controller
             }
         });
 
+        if($request['save'] == 'save')
+        {
+            return to_route('test.edit', [$course, $unit, $test])->with('status', 'Successfully Created');
+        }
+
        return back()->with('status', 'Successfully Created');
     }
 
     public function edit(Course $course, Unit $unit, Test $test, Question $question)
     {
-        return view('trainers.question.edit', [
+        return view('trainers.courses.units.test.question.edit', [
             'course' => $course,
             'unit' => $unit,
             'test' => $test,
@@ -77,12 +82,40 @@ class QuestionController extends Controller
 
     public function update(Request $request, Question $question)
     {
-        $attributes = $request->validate([
+        $request->validate([
             'question' => 'required|min:3',
-            'options' => 'array|required|min:2|max:255',
+            'options' => 'array|size:2',
+            'options.*' => 'required|min:3|max:255',
             'radio' => 'required|min:1|gt:0'
         ]);
-        // dd($request->all());
+
+        $question->update([
+            'question' => $request['question']
+        ]);
+
+       $i =0;
+
+       $question->options()->each(function($option) use(&$i, $request) {
+            
+            if ($i+1 == $request['radio'])
+            {
+                $option->update([
+                    'option' => $request['options'][$i],
+                    'answer' => true
+                ]);
+            }
+            else
+            {
+                $option->update([
+                    'option' => $request['options'][$i],
+                    'answer' => false
+                ]);
+            }
+            $i++;
+        });
+
+       return back()->with('status', 'Successfully Updated');
+
     }
 
     public function destroy(Question $question)

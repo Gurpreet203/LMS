@@ -12,20 +12,12 @@
             <div class="mb-3">
             <label for="title" class="form-label">What Will Be The Course Name?</label>
             <input type="text" name="title" class="form-control form-control-sm" required placeholder="Enter Course Name" value="{{old('title')}}">
-                <span class="text-danger">
-                    @error('title')
-                        {{$message}}
-                    @enderror
-                </span>
+                <x-error name='title' />
             </div>
             <div class="mb-3">
                 <label for="description" class="form-label">Provide A Brief Description For What The Course About.</label>
                 <textarea name="description" id="" cols="30" rows="5" class="form-control form-control-sm" required placeholder="Description">{{old('description')}}</textarea>
-                <span class="text-danger">
-                    @error('description')
-                        {{$message}}
-                    @enderror
-                </span>
+                <x-error name='description' />
             </div>
         <div class="mb-3">
                 <label for="category" class="form-label">Which Category Should The Course Be In?</label>
@@ -34,11 +26,7 @@
                         <option value="{{$category->id}}" @if(old('category_id') == $category->id) Selected @endif>{{$category->name}}</option>
                     @endforeach
                 </select>
-                <span class="text-danger">
-                    @error('category_id')
-                        {{$message}}
-                    @enderror
-                </span>
+                <x-error name='category_id' />
         </div>
             <div class="mb-3">
                 <label for="level" class="form-label">What Is The Level Of The Course</label>
@@ -47,11 +35,7 @@
                         <option value="{{$level->id}}"  @if(old('level_id') == $level->id) Selected @endif>{{$level->name}}</option>
                     @endforeach
                 </select>
-                <span class="text-danger">
-                    @error('level_id')
-                        {{$message}}
-                    @enderror
-                </span>
+                <x-error name='level_id' />
             </div>
             <div class="form-check mb-3">
                 <input class="form-check-input" type="checkbox" name="certificate" id="flexCheckDefault">
@@ -68,11 +52,7 @@
             <div class="mb-3">
                 <label for="title" class="form-label">Upload Course Image</label>
                 <input type="file" name="image" class="form-control form-control-sm" placeholder="upload Course Image" accept=".png, .jpg, .jpeg, .gif">
-                <span class="text-danger">
-                    @error('image')
-                        {{$message}}
-                    @enderror
-                </span>
+                <x-error name='image' />
             </div>
         </div>
         

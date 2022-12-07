@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\Rule;
 
 class CategoryController extends Controller
 {
@@ -51,10 +50,11 @@ class CategoryController extends Controller
         }
         else
         {
-            Category::create($attributes);
+            $category = Category::create($attributes);
         }
     
-        return to_route('categories')->with('status', 'Successfully Created');
+        return to_route('categories.edit', $category)
+            ->with('status', 'Successfully Created');
     }
 
     public function edit(Category $category)
@@ -76,7 +76,7 @@ class CategoryController extends Controller
 
         $category->update($attributes);
         
-        return to_route('categories')->with('status','Successfully Updated');
+        return back()->with('status','Successfully Updated');
     }
 
     public function delete(Category $category)

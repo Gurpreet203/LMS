@@ -11,7 +11,7 @@ class TestController extends Controller
 {
     public function create(Course $course, Unit $unit)
     {
-        return view('trainers.test.create', [
+        return view('trainers.courses.units.test.create', [
             'course' => $course,
             'unit' => $unit
         ]);
@@ -21,18 +21,24 @@ class TestController extends Controller
     {
         $attributes = $request->validate([
             'name' => 'required|min:3|max:255',
-            'duration' => 'required|numeric',
-            'pass_score' => 'required|numeric|gt:0'
+            'duration' => 'required|numeric|gt:0',
+            'pass_score' => 'required|numeric|between:1,100'
         ]);
         $attributes += [
             'unit_id' => $unit->id
         ];
+        $test = Test::create($attributes);
+        $unit->increment('duration', $request['duration']);
 
-        Test::create($attributes);
+        $test->lessons()->create([
+            'unit_id' => $unit->id,
+            'duration' => $attributes['duration']
+        ]);
 
         if ($request['save'] == 'save')
         {
-            return to_route('units.edit', [$course, $unit])->with('status', 'Successfully Test Created');
+            return to_route('test.edit', [$course, $unit, $test])
+                ->with('status', 'Successfully Test Created');
         }
 
         return back()->with('status', 'Successfully Test Created');
@@ -40,30 +46,30 @@ class TestController extends Controller
 
     public function edit(Course $course, Unit $unit, Test $test)
     {
-        return view('trainers.test.edit', [
+        return view('trainers.courses.units.test.edit', [
             'course' => $course,
             'unit' => $unit,
             'test' => $test
         ]);
     }
 
-    public function update(Request $request, Course $course, Unit $unit, Test $test)
+    public function update(Request $request, Test $test)
     {
         $attributes = $request->validate([
             'name' => 'required|min:3|max:255',
-            'duration' => 'required|numeric',
-            'pass_score' => 'required|numeric|gt:0'
+            'duration' => 'required|numeric|gt:0',
+            'pass_score' => 'required|numeric|between:1,100'
         ]);
 
         $test->update($attributes);
 
-        return to_route('units.edit', [$course, $unit])->with('status', 'Successfully Test Updated');
+        return back()->with('status', 'Successfully Test Updated');
     }
 
-    public function destroy(Course $course, Unit $unit, Test $test)
+    public function destroy(Test $test)
     {
         $test->delete($test);
 
-        return to_route('units.edit', [$course, $unit])->with('status', 'Successfully Test Updated');
+        return back()->with('status', 'Successfully Test Updated');
     }
 }

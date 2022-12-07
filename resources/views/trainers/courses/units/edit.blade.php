@@ -7,7 +7,7 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item" ><h4><a href="{{ route('courses') }}" style="text-decoration: none;">Course</a></h4></li>
                 <li class="breadcrumb-item" ><a href="{{ route('courses.show', $course) }}" class="mine-bread">{{$course->title}}</a></li>
-                <li class="breadcrumb-item active" aria-current="page" style="width: 600px;"><h4>Edit Unit</h4></li>
+                <li class="breadcrumb-item active mine" aria-current="page">Edit Unit</li>
             </ol>
         </div>
     </div>
@@ -41,7 +41,7 @@
 
         <div>
             <div>
-                <a href="{{ route('test.create', [$course,$unit]) }}" class="test"><i class="bi bi-file-earmark-plus"></i> <span>Add Test</span></a>
+                <a href="{{ route('test.create', [$course, $unit]) }}" class="test"><i class="bi bi-file-earmark-plus"></i> <span>Add Test</span></a>
             </div>
         </div>
     </div>
@@ -53,16 +53,16 @@
         <section class="unit unit-details">
             <div class="unit-detail">
                 <div>
-                    <i class="bi bi-grip-vertical" style="font-size: 25px;color:grey;"></i>
+                    <i class="bi bi-grip-vertical" style="color:grey;"></i>
                 </div>
                 <div class="unit-detail-info">
-                    <h3>{{$test->name}}</h3>
-                    <p>Duration: {{$test->duration}} m</p>
+                    <h5>{{$test->name}}</h5>
+                    <p style="margin: 5px 0;">{{$test->questions->count()}} Questions</p>
                 </div>
             </div>
             <div class="unit-detail-right">
                 <a href="{{ route('test.edit',[$course, $unit, $test]) }}" class="unit-edit" style="width: 30px"><i  style="font-size: 18px;" class="bi bi-pencil-square"></i></a>
-                <form action="{{ route('test.destroy',[$course, $unit, $test]) }}" method="post">
+                <form action="{{ route('test.destroy', $test) }}" method="post">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-outline-danger btn-sm"><i class="bi bi-trash"></i></button>

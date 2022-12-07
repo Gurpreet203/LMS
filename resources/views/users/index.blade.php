@@ -51,7 +51,7 @@
                 <th>Status</th>
                 <th></th>
                 </tr>
-                @if ($users->count()>=1)
+                @if ($users->count()>0)
                     @foreach ($users as $user)
                         <tr>
                         <td>
@@ -119,7 +119,7 @@
                                     <li class="drop-items">
                                         <div class="drop-items-icon">
                                             <i class="bi bi-wrench-adjustable"></i>
-                                            <a href="{{ route('users.edit', $user) }}">Edit</a>
+                                            <a href="{{ route('users.edit', $user) }}" confirm="want to proceed ? ">Edit</a>
                                         </div>
                                     </li>
                                     

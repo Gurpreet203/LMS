@@ -82,7 +82,8 @@ class UserController extends Controller
 
         if($request['save'] == 'save')
         {
-            return to_route('users')->with('status', 'Successfully Created');
+            return to_route('users.edit', $user)
+                ->with('status', 'Successfully Created');
         }
 
         return back()->with('status', 'Successfully Created');

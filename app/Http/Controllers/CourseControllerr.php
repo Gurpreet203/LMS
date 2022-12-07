@@ -126,13 +126,17 @@ class CourseControllerr extends Controller
             'certificate' => $request['certificate'] ? true : false,
         ];
 
-        $course->images->update([
-            'image' => $request->file('image')->store('/images')
-        ]);
+         if ($request->file('image'))
+        {
+            $image = $request->file('image')->store('/images'); 
+            $course->images->update([
+                'image' => $image
+            ]);
+        }
 
         $course->update($attributes);
 
-        return to_route('courses')->with('status', 'Successfully Updated');
+        return back()->with('status', 'Successfully Updated');
     }
 
     public function show(Course $course)
@@ -140,7 +144,7 @@ class CourseControllerr extends Controller
         $this->authorize('view', $course);
         
         return view('trainers.courses.show', [
-            'course' => $course,
+            'course' => $course
         ]);
     }
 }

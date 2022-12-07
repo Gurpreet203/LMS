@@ -13,7 +13,7 @@
            
     </section>
 
-    @if ($courses->count()>=1)
+    @if ($courses->count()>0)
         @foreach ($courses as $course)
             <section class="course-list">
                 <div class="course-detail">

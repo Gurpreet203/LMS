@@ -32,7 +32,7 @@
                 </div>
             </div>
             <div class="course-show-detail-right">
-                <a href="{{ route('courses.edit',$course) }}"><i class="bi bi-pencil-square"></i> Edit Basic Info</a>
+                <a href="{{ route('courses.edit', $course) }}"><i class="bi bi-pencil-square"></i> Edit Basic Info</a>
             </div>
         </div>
         <hr>
@@ -40,7 +40,7 @@
             <div class="course-detail-bottom-elements">
                 <p><i class="bi bi-stopwatch" style="font-weight: bold;font-size: 20px;"></i></p>
                 <p>Course Duration</p>
-                <div><p>{{$course->units->count()}}</p></div>
+                <div><p>{{$course->units->sum('duration')}} m</p></div>
             </div>
             <div class="course-detail-bottom-elements">
                 <p><i class="bi bi-easel" style="font-weight: bold;font-size: 20px;"></i></p>
@@ -60,7 +60,7 @@
             <div class="course-detail-bottom-elements">
                 <p><i class="bi bi-patch-check-fill" style="font-weight: bold;font-size: 20px;"></i></p>
                 <p>Certificate Of Completion</p>
-                <div><p>{{$course->certificate == 1? 'Yes':'No'}}</p></div>
+                <div><p>{{$course->certificate == true? 'Yes':'No'}}</p></div>
             </div>
         </div>
     </section>
@@ -80,18 +80,17 @@
                     </div>
                 </div>
                 <div class="unit-detail-right">
-                    <a href="{{ route('units.edit',['course'=>$course,'unit'=>$unit]) }}" class="unit-edit"><i class="bi bi-pencil-square"></i> Edit Section</a>
-                    <form action="{{ route('units.destroy',['course'=>$course,'unit'=>$unit]) }}" method="post">
+                    <a href="{{ route('units.edit', [$course, $unit]) }}" class="unit-edit"><i class="bi bi-pencil-square"></i> Edit Section</a>
+                    <form action="{{ route('units.destroy', [$course, $unit]) }}" method="post">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-outline-danger btn-sm"><i class="bi bi-trash"></i> Delete</button>
                     </form>
                 </div>
             </div>
-
             <div>
-                <h4>Lessons</h4>
-                @if ($unit->tests)
+                <h5 class="lessons-ui">Lessons <span>{{$unit->lessons->sum('duration')}} m</span></h5>
+                @if ($unit->tests->count()>0)
                     @foreach ($unit->tests as $test)
                         <p class="lessons-detail">{{$test->name}} <span>{{$test->duration}} m</span></p>
                     @endforeach

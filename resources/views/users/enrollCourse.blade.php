@@ -29,11 +29,7 @@
                     <p style="color: grey;text-align:center;">No Course Exist</p>  
             @endif
             </ul>
-            <span class="text-danger">
-                @error('course_ids')
-                    {{$message}}
-                @enderror
-            </span>
+            <x-error name="course_ids" />
         </div>
     </div>
 

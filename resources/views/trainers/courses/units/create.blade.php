@@ -7,7 +7,7 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item" ><h4><a href="{{ route('courses') }}" style="text-decoration: none;">Course</a></h4></li>
                 <li class="breadcrumb-item" ><a href="{{ route('courses.show', $course) }}" class="mine-bread">{{$course->title}}</a></li>
-                <li class="breadcrumb-item active" aria-current="page" style="width: 600px;"><h4>Add Unit</h4></li>
+                <li class="breadcrumb-item active mine" aria-current="page">Add Unit</li>
               </ol>
         </div>
     </div>

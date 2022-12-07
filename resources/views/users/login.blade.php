@@ -17,18 +17,12 @@
         <h1>Account Login</h1>
         <label for="email" class="form-label">Email</label>
         <input type="email" name="email" class="form-control" required>
-        <span class="text-danger">
-            @error('email')
-                {{$message}}
-            @enderror
-        </span>
+        <x-error name='email' />
+        
         <label for="password" class="form-label">Password</label>
         <input type="password" name="password" class="form-control" required>
-        <span class="text-danger">
-            @error('password')
-                {{$message}}
-            @enderror
-        </span>
+        <x-error name='password' />
+
         <div>
             <input type="checkbox" name="remember">Remember me
             <a href="{{ route('forget-password') }}">Forgot Password?</a>

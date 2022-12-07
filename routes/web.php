@@ -161,11 +161,11 @@ Route::middleware(['auth'])->group(function() {
 
         Route::post('/courses/{course}/units/store', 'store')->name('units.store');
 
-        Route::get('/courses/{course:slug}/unit/{unit:slug}/edit', 'edit')->name('units.edit');
+        Route::get('/courses/{course:slug}/units/{unit:slug}/edit', 'edit')->name('units.edit');
 
-        Route::put('/courses/{course:slug}/unit/{unit}/update', 'update')->name('units.update');
+        Route::put('/courses/{course:slug}/units/{unit}/update', 'update')->name('units.update');
 
-        Route::delete('/courses/{course:slug}/unit/{unit}/destroy', 'destroy')->name('units.destroy');
+        Route::delete('/courses/{course:slug}/units/{unit}/destroy', 'destroy')->name('units.destroy');
 
     });
     
@@ -190,22 +190,22 @@ Route::middleware(['auth'])->group(function() {
 
     Route::controller(TestController::class)->group(function(){
 
-        Route::get('/courses/{course:slug}/units/{unit:slug}/create', 'create')->name('test.create');
+        Route::get('/courses/{course:slug}/units/{unit:slug}/test/create', 'create')->name('test.create');
 
-        Route::post('/courses/{course:slug}/units/{unit:slug}/store', 'store')->name('test.store');
+        Route::post('/courses/{course:slug}/units/{unit:slug}/test/store', 'store')->name('test.store');
 
         Route::get('/courses/{course:slug}/units/{unit:slug}/test/{test}/edit', 'edit')->name('test.edit');
 
-        Route::put('/courses/{course:slug}/units/{unit:slug}/test/{test}/update', 'update')->name('test.update');
+        Route::put('/courses/units/test/{test}/update', 'update')->name('test.update');
 
-        Route::delete('/courses/{course:slug}/units/{unit:slug}/test/{test}/destroy', 'destroy')->name('test.destroy');
+        Route::delete('/courses/units/test/{test}/destroy', 'destroy')->name('test.destroy');
     });
 
     Route::controller(QuestionController::class)->group(function(){
 
         Route::get('/courses/{course:slug}/units/{unit:slug}/test/{test}/create', 'create')->name('question.create');
 
-        Route::post('/courses/unit/test/{test}/storeQuestions', 'store')->name('question.store');
+        Route::post('/courses/{course:slug}/units/{unit:slug}/test/{test}/store', 'store')->name('question.store');
 
         Route::get('/courses/{course:slug}/units/{unit:slug}/test/{test}/question/{question}/edit', 'edit')->name('question.edit');
 

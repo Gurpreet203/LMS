@@ -496,7 +496,7 @@ iframe {
 .unit-detail-info {
     margin-left: 20px;
 }
-.unit-detail-info h3 {
+.unit-detail-info h5 {
     color: rgb(86, 85, 85);
 }
 .unit-detail-info p {
@@ -591,22 +591,42 @@ iframe {
 .percent {
     position: absolute;
     left: 57%;
-    top: 45%;
+    top: 51%;
 }
-.lessons-detail {
+.lessons-detail,
+.lessons-ui {
     display: flex;
     justify-content: space-between;
-    padding: 10px;
-    border-radius: 10px;
+    padding: 10px 15px;
+    border-radius: 5px;
+    margin-bottom: 0;
+}
+.lessons-detail {
+    font-size: 14px;
+}
+.lessons-ui {
+    background-color: rgb(240, 241, 241);
+    padding: 5px 10px;
 }
 .lessons-detail:hover {
-    background-color: rgb(11, 133, 239);
+    background-color: rgb(16, 55, 92);
     color: white;
 }
-.lessons-detail span {
+.lessons-detail span,
+.lessons-ui span {
     background-color: rgb(230, 239, 250);
     color: rgb(122, 176, 248);
     border-radius: 12px;
     padding: 2px 5px;
     font-size: 14px;
+}
+.lessons-ui span {
+    padding: 2px 10px;
+}
+.course-content {
+    display: flex;
+    justify-content: space-between;
+}
+.mine {
+    font-size: 20px;
 }
