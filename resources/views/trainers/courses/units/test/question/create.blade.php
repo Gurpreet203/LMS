@@ -20,16 +20,12 @@
     @include('layouts.flashmessages')
         <form action="{{ route('question.store', [$course, $unit, $test]) }}" class="create-form" method="POST">
             @csrf
-             @if ($errors->all())
-                @foreach ($errors->all() as $error)
-                    <div class="text-danger">{{$error}}</div>
-                @endforeach
-            @endif
-
+            <x-error name="options.*" />
+            <x-error name="options" />
             <div class="mb-3">
                 <label for="question" class="form-label">Question</label>
                 <textarea name="question" id="" class="form-control" cols="30" rows="5" placeholder="Enter Question">{{old('question')}}</textarea>
-                
+                <x-error name="question"/>
             </div>
             <div class="mb-2 add-item">
                 <a href="#" id="add_more_fields"><i class="bi bi-plus"></i> Add More Options</a>
@@ -42,17 +38,22 @@
                         id="options[]" 
                         class="form-control mb-3" 
                         placeholder="option"
-                        value="{{old('options.0')}}"
+                        value="{{old('options.input.0')}}"
                     >
                     <input type="radio" name="radio" value="1" id="radio">
-                        
                 </div>
+                <x-error name="options.0" />
+
+                <x-error name="radio" />   
+
                 <div class="outter-input-radio">
-                    <input type="text" name="options[]" id="options[]" class="form-control mb-3" placeholder="option" value="{{old('options.1')}}">
+                    <input type="text" name="options[]" id="options[]" class="form-control mb-3" placeholder="option" value="{{old('options.input.1')}}">
                        
                     <input type="radio" name="radio" value="2" id="radio">
-                        
                 </div>
+                <x-error name="options.1" />
+                <x-error name="radio" />
+
 
                 <div class="outter-input-radio">
                     <div id="input-field" style="width: 92%"></div>

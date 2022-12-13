@@ -10,7 +10,7 @@
         
             <x-search  route="courses" placeholder="Search by Name or Description"/>
         
-           
+        </div>
     </section>
 
     @if ($courses->count()>0)
@@ -22,7 +22,7 @@
                     </div>
                     <div>
                         <a href="{{ route('my-courses.index') }}" class="category-badge">{{$course->category->name}}</a>
-                        <h3>{{$course->title}}</h3>
+                        <h3><a href="{{ route('my-courses.view', $course) }}" class="title-link">{{$course->title}}</a></h3>
                         <div class="course-created-details">
                             <p>Created By:<span>{{$course->user->name}}</span></p>
                             <p>Created On:<span>{{$course->created_at->format('F d,Y')}}</span></p>

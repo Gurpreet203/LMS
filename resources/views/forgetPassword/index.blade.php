@@ -20,11 +20,7 @@
                 <div class="mb-3">
                     <label for="email" class="form-label">Email</label>
                     <input type="email" class="form-control form-control-sm" name="email" required placeholder="Email"> 
-                    <span class="text-danger">
-                        @error('email')
-                            {{$message}}
-                        @enderror
-                    </span>
+                    <x-error name="email" />
                 </div>
                 
                 <button type="submit" class="btn btn-secondary">Send Email</button>

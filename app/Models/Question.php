@@ -10,13 +10,13 @@ class Question extends Model
     use HasFactory;
 
     protected $fillable = [
-        'question'
+        'question',
     ];
 
     public function test()
     {
         return $this->belongsToMany(Test::class, 'test_question')
-            ->withPivot('id')
+            ->withPivot('id', 'test_id')
             ->withTimestamps()
             ->using(TestQuestion::class);
     }
@@ -25,4 +25,9 @@ class Question extends Model
     {
         return $this->hasMany(Option::class);
     }
+
+    // public function scopeValidate($query)
+    // {
+    //     return $query->;
+    // }
 }

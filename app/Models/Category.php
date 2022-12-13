@@ -41,6 +41,10 @@ class Category extends Model
 
     public function scopeVisibleTo($query)
     {
+        if (Auth::user()->role_id == Role::TRAINER)
+        {
+            return $query->where('created_by', 1);
+        }
         return $query->where('created_by', Auth::id());
     }
 

@@ -17,7 +17,7 @@
         </div>
     </div>
     @include('layouts.flashmessages')
-        <form action="{{ route('question.update', $question) }}" class="create-form" method="POST">
+        <form action="{{ route('question.update', [$course, $question]) }}" class="create-form" method="POST">
             @method('PUT')
             @csrf
             <div class="mb-3">
@@ -59,6 +59,11 @@
                 </div>
 
             @endforeach
+
+            <div class="outter-input-radio">
+                <div id="input-field" style="width: 92%"></div>
+                <div class="radio-input" id="radio-input"></div>
+            </div>
                 
             <button type="submit" name="update" class="btn btn-secondary">Update</button>
             <a href="{{ route('test.edit',[$course, $unit, $test]) }}" class="btn btn-outline-secondary">Cancel</a>

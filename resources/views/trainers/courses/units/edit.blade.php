@@ -20,11 +20,7 @@
             <div class="mb-3">
                 <label for="title" class="form-label">Title</label>
                 <input type="text" name="title" class="form-control form-control-sm" required placeholder="Enter Unit Name" value="{{$unit->title}}">
-                <span class="text-danger">
-                    @error('title')
-                        {{$message}}
-                    @enderror
-                </span>
+                <x-error name="title" />
             </div>
             <div class="mb-3">
                 <label for="description" class="form-label">Description</label>
@@ -62,7 +58,7 @@
             </div>
             <div class="unit-detail-right">
                 <a href="{{ route('test.edit',[$course, $unit, $test]) }}" class="unit-edit" style="width: 30px"><i  style="font-size: 18px;" class="bi bi-pencil-square"></i></a>
-                <form action="{{ route('test.destroy', $test) }}" method="post">
+                <form action="{{ route('test.destroy', [$course, $test]) }}" method="post">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-outline-danger btn-sm"><i class="bi bi-trash"></i></button>

@@ -18,7 +18,7 @@
     </div>
     @include('layouts.flashmessages')
         <div class="add-test-link">
-            <form action="{{ route('test.update', $test) }}" class="create-form" method="POST">
+            <form action="{{ route('test.update', [$course, $unit, $test]) }}" class="create-form" method="POST">
                 @method('PUT')
                 @csrf
                 <div class="mb-3">
@@ -81,7 +81,7 @@
                 </div>
                 <div class="unit-detail-right">
                     <a href="{{ route('question.edit', [$course, $unit, $test, $question]) }}" class="unit-edit" style="width: 30px"><i  style="font-size: 18px;" class="bi bi-pencil-square"></i></a>
-                    <form action="{{ route('question.destroy',[$question]) }}" method="post">
+                    <form action="{{ route('question.destroy',[$course, $question]) }}" method="post">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-outline-danger btn-sm"><i class="bi bi-trash"></i></button>

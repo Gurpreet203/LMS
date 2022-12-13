@@ -22,12 +22,8 @@
                 
             <a href="{{ route('users') }}" id="{{ Request::url() == route('users') ? 'hovereffect' : '' }}"><li><i class="bi bi-people-fill"></i> Users </li></a>
 
-            @if(Auth::user()->role_id!=4)
-        
             <a href="{{ route('categories') }}" id="{{ Request::url() == route('categories') ? 'hovereffect' : '' }}"><li><i class="bi bi-list"></i> Categories</li></a>
 
-            @endif
-            
             <a href="{{ route('courses') }}" id="{{ Request::url() == route('courses') ? 'hovereffect' : '' }}"><li><i class="bi bi-files"></i> Courses</li></a>
             
             <a href="#"><li><i class="bi bi-bar-chart-fill"></i> Reports</li></a>

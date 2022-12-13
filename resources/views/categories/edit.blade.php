@@ -12,17 +12,10 @@
         <div class="mb-3">
             <label for="name" class="form-label">Name</label>
             <input type="text" name="name" class="form-control form-control-sm" value="{{$category->name}}" required>
-            <span class="text-danger">
-                @error('name')
-                    {{$message}}
-                @enderror
-                @error('category')
-                    {{$message}}
-                @enderror
-            </span>
+           
+            <x-error name="name" />
+         
         </div>
-
-        <input type="hidden" name="category" value="{{$category->slug}}">
        
         <input type="submit" value="Update" name="change" class="btn btn-secondary">
         <a href="{{ route('categories') }}" class="btn btn-outline-secondary">Cancel</a>

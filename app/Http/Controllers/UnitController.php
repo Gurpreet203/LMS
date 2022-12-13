@@ -40,6 +40,8 @@ class UnitController extends Controller
 
     public function edit(Course $course, Unit $unit)
     {
+        $this->authorize('update', $course);
+
         return view('trainers.courses.units.edit', [
             'unit' => $unit,
             'course' => $course
@@ -48,6 +50,8 @@ class UnitController extends Controller
 
     public function update(Request $request, Course $course, Unit $unit)
     {
+        $this->authorize('update', $course);
+
         $attributes = $request->validate([
             'title' => 'required|min:3|max:255',
             'description' => 'required|min:5'
@@ -60,6 +64,8 @@ class UnitController extends Controller
 
     public function destroy(Course $course, Unit $unit)
     {
+        $this->authorize('delete', $course);
+
         $unit->delete();
 
         return to_route('courses.show', $course)->with('status', 'Successfully deleted');

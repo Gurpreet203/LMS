@@ -11,11 +11,7 @@
         <div class="mb-3">
             <label for="name" class="form-label">Name</label>
             <input type="text" class="form-control form-control-sm" name="name" required value="{{ old('name') }}">
-            <span class="text-danger">
-                @error('name')
-                    {{$message}}
-                @enderror
-            </span>
+            <x-error name="name" />
         </div>
         
         <input type="submit" value="Create" name="addUser" class="btn btn-secondary">

@@ -8,8 +8,9 @@ use App\Http\Controllers\CategoryStatusController;
 use App\Http\Controllers\CourseControllerr;
 use App\Http\Controllers\CourseEnrollmentController;
 use App\Http\Controllers\CourseStatusController;
-use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\EnrollmentController;
+use App\Http\Controllers\Learner\LearnerController;
+use App\Http\Controllers\Learner\LearnerUnitController;
 use App\Http\Controllers\OverviewController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\ResetPasswordController;
@@ -196,9 +197,9 @@ Route::middleware(['auth'])->group(function() {
 
         Route::get('/courses/{course:slug}/units/{unit:slug}/test/{test}/edit', 'edit')->name('test.edit');
 
-        Route::put('/courses/units/test/{test}/update', 'update')->name('test.update');
+        Route::put('/courses/{course:slug}/units/{unit:slug}/test/{test}/update', 'update')->name('test.update');
 
-        Route::delete('/courses/units/test/{test}/destroy', 'destroy')->name('test.destroy');
+        Route::delete('/courses/{course:slug}/units/test/{test}/destroy', 'destroy')->name('test.destroy');
     });
 
     Route::controller(QuestionController::class)->group(function(){
@@ -209,15 +210,27 @@ Route::middleware(['auth'])->group(function() {
 
         Route::get('/courses/{course:slug}/units/{unit:slug}/test/{test}/question/{question}/edit', 'edit')->name('question.edit');
 
-        Route::put('/courses/unit/test/question/{question}/update', 'update')->name('question.update');
+        Route::put('/courses/{course:slug}/unit/test/question/{question}/update', 'update')->name('question.update');
 
-        Route::delete('/courses/unit/test/{question}/delete', 'destroy')->name('question.destroy');
+        Route::delete('/courses/{course:slug}/unit/test/{question}/delete', 'destroy')->name('question.destroy');
 
     });
 
-    Route::controller(EmployeeController::class)->group(function(){
+    Route::controller(LearnerController::class)->group(function(){
 
         Route::get('/my-courses', 'index')->name('my-courses.index');
+
+        Route::get('/my-courses/{course:slug}/details', 'view')->name('my-courses.view');
+        
+    });
+
+    Route::controller(LearnerUnitController::class)->group(function() {
+
+        Route::get('/my-courses/{course:slug}/unit/{unit:slug}/details', 'view')->name('my-courses.units.view');
+
+        Route::get('/my-courses/{course:slug}/unit/{unit:slug}/test/{test}/attempt', 'show')->name('my-courses.units.test.attempt');
+
+        Route::post('/my-courses/{course:slug}/unit/{unit:slug}/test/{test}/question/{question?}/submit', 'store')->name('my-courses.units.test.submit');
         
     });
 

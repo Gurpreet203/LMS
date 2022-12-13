@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Learner;
 
+use App\Http\Controllers\Controller;
 use App\Models\Course;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class EmployeeController extends Controller
+class LearnerController extends Controller
 {
     public function index()
     {
@@ -15,6 +17,13 @@ class EmployeeController extends Controller
                         })
                 ->publish()
                 ->get()
+        ]);
+    }
+
+    public function view(Course $course)
+    {
+        return view('learner.course.show', [
+            'course' => $course
         ]);
     }
 }

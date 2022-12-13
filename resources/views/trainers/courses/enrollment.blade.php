@@ -30,11 +30,7 @@
                     <p style="color: grey;text-align:center;">No User Exist</p>                      
                 @endif    
             </ul>
-            <span class="text-danger">
-                @error('user_ids')
-                    {{$message}}
-                @enderror
-            </span>
+            <x-error name="user_ids" />
         </div>
     </div>
 

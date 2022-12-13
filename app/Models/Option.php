@@ -19,4 +19,9 @@ class Option extends Model
     {
         return $this->belongsTo(Question::class);
     }
+
+    public function scopeAnswer($query)
+    {
+        return $query->where('answer', true);
+    }
 }

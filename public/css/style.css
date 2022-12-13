@@ -630,3 +630,11 @@ iframe {
 .mine {
     font-size: 20px;
 }
+
+.result {
+    text-align: center;
+    margin-top: 2rem;
+}
+.result i {
+    font-size: 100px;
+}

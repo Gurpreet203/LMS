@@ -5,6 +5,8 @@
     <div class="breadcrumbs-mine">
         <x-previousPageLink route="courses" name="Courses" current="Edit Course"/>
     </div>
+    
+    @include('layouts.flashmessages')
     <form action="{{ route('courses.update', $course) }}" method="POST" class="create-form" enctype="multipart/form-data">
         @method('PUT')
         @csrf
